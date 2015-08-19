@@ -25,9 +25,9 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'insidencia',
-        'USER': 'insidencia',
-        'PASSWORD': 'insidencia',
+        'NAME': 'gestion',
+        'USER': 'gestion',
+        'PASSWORD': 'gestion',
         'HOST': 'localhost',
         'PORT': '5432',
     }
@@ -138,6 +138,7 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.admindocs',
     'manejoIncidencias',
+    'usuario',
 )
 
 # A sample logging configuration. The only tangible logging
