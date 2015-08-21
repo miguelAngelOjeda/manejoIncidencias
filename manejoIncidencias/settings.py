@@ -139,6 +139,7 @@ INSTALLED_APPS = (
     'django.contrib.admindocs',
     'manejoIncidencias',
     'usuario',
+    'proyecto',
 )
 
 # A sample logging configuration. The only tangible logging

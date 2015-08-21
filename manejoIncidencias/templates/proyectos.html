@@ -34,7 +34,7 @@
 	</div>
 	<div class="col-lg-2">
 
-		  	<a href="/usuario/nuevo" class="btn btn-primary" role="button">Agregar</a>
+		  	<a href="/proyecto/nuevo" class="btn btn-primary" role="button">Agregar</a>
 			<a href="/" class="btn btn-info" role="button">Atras</a>
 
 	</div>
@@ -42,7 +42,7 @@
 
 <div class="row">
 	<ul>
-		<h2 class="sub-header">Usuarios</h2>
+		<h2 class="sub-header">Proyectos</h2>
 		<hr>
 	</ul>
 </div>
@@ -52,26 +52,28 @@
 			  <thead>
 				<tr>
 					 <th>#</th>
-					<th>Nombre</th>
-					<th>Email</th>
-					<th>Telefono</th>
+					<th>Codigo</th>
+					<th>Nombre Corto</th>
+					<th>Estado</th>
+					<th>Scrum Master</th>
 					<th></th>
 				</tr>
 			  </thead>
 			  <tbody>
-					{% for dato in usuarios %}
-						<tr>
-							<td></td>
-							<td>{{dato.user.username|capfirst}}</td>
-							<td>{{dato.user.email}}</td>
-							<td>{{dato.telefono}}</td>
-							<td>
-								<button type="button" class="btn btn-default" data-tooltip="Desactivar" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-							</td>
-						</tr>
-					{% empty %}
-						<li>No hay usuarios registrados, aún.</li>
-					{% endfor %}
+					{% for dato in proyectos %}
+					<tr>
+						<td></td>
+						<td>{{dato.codigo|capfirst}}</td>
+						<td>{{dato.nombre_corto}}</td>
+						<td>{{dato.estado}}</td>
+						<td>{{dato.scrum_master.username}}</td>
+						<td>
+							<button type="button" class="btn btn-default" data-tooltip="Desactivar" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						</td>
+					</tr>
+						{% empty %}
+						<li>No hay proyectos registrados, aún.</li>
+						{% endfor %}
 			  </tbody>
 			</table>
 	</div>

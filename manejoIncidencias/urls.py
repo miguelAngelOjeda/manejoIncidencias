@@ -29,4 +29,6 @@ urlpatterns = patterns('',
     url(r'^usuarios/$','usuario.views.usuarios'),
     url(r'^usuario/nuevo$','usuario.views.nuevo_usuario'),
     url(r'^gestion/salir/$','login.views.cerrar'),
+    url(r'^proyectos/$','proyecto.views.proyectos'),
+    url(r'^proyecto/nuevo$','proyecto.views.nuevo_proyecto'),
 )
