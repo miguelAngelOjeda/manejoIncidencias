@@ -1,3 +1,4 @@
+# coding=utf-8
 from django import forms
 from django.contrib.auth.models import User, Group
 from django.contrib.auth.forms import UserCreationForm
@@ -52,6 +53,7 @@ class UserUpdateForm(forms.ModelForm):
     @ivar forms.ModelForm: Se hereda el formulario incorporado en django para los modelos
                             para usar sus funcionalidades
     """
+
     def __init__(self, *args, **kwargs):
         super(UserUpdateForm, self).__init__(*args, **kwargs)
         eluser = Usuario.objects.get(user=kwargs['instance'].pk)
@@ -85,13 +87,15 @@ class UserUpdateForm(forms.ModelForm):
         return user, usuario
 
 
-
-
 class MyPasswordChangeForm(AdminPasswordChangeForm):
+    """
+    Clase que verifica si la contraseña cumple los requisitos necesarios.
+    @param AdminPasswordChangeForm.
+    """
     error_messages = {
-        'password_too_short': ("El password debe tener al menos 5 carateres."),
-        'password_mismatch': ("Los dos campos de password no coinciden."),
-        }
+        'password_too_short': "El password debe tener al menos 5 carateres.",
+        'password_mismatch': "Los dos campos de password no coinciden.",
+    }
 
     def clean_password1(self):
         passwd = self.cleaned_data['password1']
