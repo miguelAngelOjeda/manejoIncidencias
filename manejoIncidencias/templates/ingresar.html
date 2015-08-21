@@ -5,20 +5,21 @@
 {% endblock %}
 {% block contenido %}
 	<form id='formulario' method='post' action=''>{% csrf_token %}
-		<div class="row">
-			<div class="col-sm-6 col-md-4 col-md-offset-4">
-				<div class="panel panel-default">
-				  <div class="panel-heading">
-					<h3 class="panel-title">Acceso al Sistema</h3>
-				  </div>
-				  <div class="panel-body">
-					<table>{{formulario}}</table>
-				  </div>
-					<p><input class="btn btn-primary" type='submit' value='Ingresar'/></p>
+		<body background="{{STATIC_URL}}img/images.jpg" >
+			<div class="row">
+				<div class="col-sm-6 col-md-4 col-md-offset-4">
+					<div class="panel panel-default">
+					  <div class="panel-heading">
+						<h3 class="panel-title">Acceso al Sistema</h3>
+					  </div>
+					  <div class="panel-body">
+						<table>{{formulario}}</table>
+					  </div>
+						<p><input class="btn btn-primary" type='submit' value='Ingresar'/></p>
+					</div>
+
 				</div>
-
 			</div>
-		</div>
-
+		</body>
 	</form>
 {% endblock %}
