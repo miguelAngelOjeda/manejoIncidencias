@@ -14,7 +14,7 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="usuarios/">Usuarios</a></li>
+            <li><a href="/usuarios/">Usuarios</a></li>
             <li><a href="#">Proyectos</a></li>
             <li><a href="#">Profile</a></li>
             <li><a href="#">Help</a></li>
@@ -47,8 +47,24 @@
 </div>
 <ul>
 	<div class= "row">
+        {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
 		<form id='formulario' method='post' action=''>{% csrf_token %}
-			<table>{{formulario}}</table>
+            {% for field in formulario %}
+				    <div class="field_container">
+				        <div class="form-group col-md-4">
+                            <label  class="control-label">{{ field.label_tag }}</label>
+                            {{ field }}
+                        </div>
+				        <div class="clearfix"></div>
+				        {% if field.errors %}
+				    	<div class="row">
+					        <div class="label label-danger col-md-2">
+					        	{{ field.errors  }}
+							</div>
+						</div>
+					    {% endif %}
+				    </div>
+				{% endfor %}
 			<p><input type='submit' value='Registrar'/></p>
 		</form>
 	</div>

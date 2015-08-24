@@ -1,3 +1,4 @@
+from django.core.exceptions import ValidationError
 from django.shortcuts import render
 from usuario.models import Usuario
 from django.contrib.auth.models import User
@@ -16,8 +17,12 @@ def nuevo_usuario(request):
     if request.method=='POST':
         formulario = UserCreateForm(request.POST)
         if formulario.is_valid:
-            formulario.save()
-            return HttpResponseRedirect('/')
+            try:
+                formulario.save()
+                return HttpResponseRedirect('/')
+            except:
+                error = 'Error al procesar la entidad'
+                return render_to_response('crear.html',{'formulario':formulario,'errors':error}, context_instance=RequestContext(request))
     else:
         formulario = UserCreateForm()
     return render_to_response('crear.html',{'formulario':formulario}, context_instance=RequestContext(request))

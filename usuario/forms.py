@@ -75,6 +75,16 @@ class UserUpdateForm(forms.ModelForm):
         model = User
         fields = ['username', 'first_name', 'last_name', 'email']
 
+    def clean_first_name(self):
+      diccionario_limpio = self.cleaned_data
+
+      first_name = diccionario_limpio.get('first_name')
+
+      if len(first_name) <= "":
+         raise forms.ValidationError("El Nombre no debe estar vacio")
+
+      return first_name
+
     def save(self, commit=True):
         usuario = Usuario.objects.get(user=self.instance)
         user = super(UserUpdateForm, self).save(commit=True)
