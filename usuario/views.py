@@ -50,13 +50,37 @@ def desactivar(request, pk_usuario):
     @return: Renderiza usuarios/delete.html para obtener el formulario o
             redirecciona a la vista index de usuarios si el usuario fue desactivado.
     """
-    if request.method == 'POST':
-        user_detail = get_object_or_404(User, pk=pk_usuario)
-        user_detail.is_active = False
-        user_detail.save()
-
-        return HttpResponseRedirect('/usuarios/')
 
     user_detail = get_object_or_404(User, pk=pk_usuario)
+    user_detail.is_active = False
+    user_detail.save()
+    mensaje ="El usuario se desactivo con exito."
 
-    return render(request, 'usuarios/delete.html', locals())
+    usuario = Usuario.objects.all()
+    return render_to_response('usuarios.html', {'usuarios': usuario,'mensajes':mensaje}, context_instance=RequestContext(request))
+
+def activar(request, pk_usuario):
+    """
+    Funcion que inactiva la cuenta de un usuario seleccionado.
+
+    @type request: django.http.HttpRequest
+    @param request: Contiene informacion sobre la peticion actual
+
+    @type pk_usuario: string
+    @param pk_usuario: id del usuario a ser inactivado
+
+    @rtype: django.http.HttpResponseRedirect
+    @return: Renderiza usuarios/delete.html para obtener el formulario o
+            redirecciona a la vista index de usuarios si el usuario fue desactivado.
+    """
+
+    user_detail = get_object_or_404(User, pk=pk_usuario)
+    user_detail.is_active = True
+    user_detail.save()
+
+    mensaje ="El usuario se activo con exito."
+
+    usuario = Usuario.objects.all()
+    return render_to_response('usuarios.html', {'usuarios': usuario,'mensajes':mensaje}, context_instance=RequestContext(request))
+
+

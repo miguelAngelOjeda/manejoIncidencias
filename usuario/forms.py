@@ -2,7 +2,6 @@
 from django import forms
 from django.contrib.auth.models import User, Group
 from django.contrib.auth.forms import UserCreationForm
-
 from models import Usuario
 from views import *
 from django.contrib.auth.forms import AdminPasswordChangeForm
@@ -99,7 +98,7 @@ class UserUpdateForm(forms.ModelForm):
 
 class MyPasswordChangeForm(AdminPasswordChangeForm):
     """
-    Clase que verifica si la contraseña cumple los requisitos necesarios.
+    Clase que verifica si la contraseÃ±a cumple los requisitos necesarios.
     @param AdminPasswordChangeForm.
     """
     error_messages = {
@@ -115,3 +114,7 @@ class MyPasswordChangeForm(AdminPasswordChangeForm):
                 code='password_too_short',
             )
         return passwd
+
+
+
+
