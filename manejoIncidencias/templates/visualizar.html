@@ -15,9 +15,9 @@
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
             <li><a href="/usuarios/">Usuarios</a></li>
-            <li><a href="/proyectos/">Proyectos</a></li>
+            <li><a href="#">Proyectos</a></li>
             <li><a href="/flujos/">Flujos</a></li>
-            <li><a href="salir">Salir</a></li>
+            <li><a href="#">Help</a></li>
           </ul>
           <form class="navbar-form navbar-right">
             <input type="text" class="form-control" placeholder="Search...">
@@ -41,16 +41,24 @@
 </div>
 <div class="row">
 	<ul>
-		<h2 class="sub-header">Nuevo Proyecto</h2>
+		<h2 class="sub-header">{{ usuario.user.username }}</h2>
 		<hr>
 	</ul>
 </div>
 <ul>
 	<div class= "row">
-		<form id='formulario' method='post' action=''>{% csrf_token %}
-			<table>{{formulario}}</table>
-			<p><input type='submit' value='Registrar'/></p>
-		</form>
+        {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+		<div class="content-secondary">
+
+			<p><h4>Nombre_de_Usuario: <span class="label label-default">{{ usuario.user.username }}</span></h4></p>
+			<p><h4>Nombre: <span class="label label-default">{{ usuario.user.first_name }}</span></h4></p>
+			<p><h4>Apellido: <span class="label label-default">{{ usuario.user.last_name }}</span></h4></p>
+			<p><h4>Documento: <span class="label label-default">{{ usuario.documento }}</span></h4></p>
+			<p><h4>Email: <span class="label label-default">{{ usuario.user.email }}</span></h4></p>
+			<p><h4>Telefono: <span class="label label-default">{{ usuario.telefono }}</span></h4></p>
+			<p><h4>Direccion: <span class="label label-default">{{ usuario.direccion }}</span></h4></p>
+
+		</div>
 	</div>
 </ul>
 {% endblock %}
