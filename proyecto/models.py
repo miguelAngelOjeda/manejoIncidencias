@@ -23,6 +23,7 @@ class Proyecto(models.Model):
     nombre_largo = models.CharField(max_length=40)
     fecha_inicio = models.DateField(default=datetime.date.today)
     fecha_fin = models.DateField(default=datetime.date.today)
+    is_active = models.BooleanField(default=True)
     cancelado = models.BooleanField(default=False)
     scrum_master = models.OneToOneField(User, null=True, related_name='scrum_master')
     equipo = models.ManyToManyField(User, null=True)
