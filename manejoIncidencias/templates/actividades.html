@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% block encabezado %}
+<nav class="navbar navbar-inverse navbar-fixed-top">
+	<div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Gestion de Proyectos</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/usuarios/">Usuarios</a></li>
+            <li><a href="/proyectos/">Proyectos</a></li>
+            <li><a href="/flujos/">Flujos</a></li>
+            <li><a href="salir">Salir</a></li>
+          </ul>
+          <form class="navbar-form navbar-right">
+            <input type="text" class="form-control" placeholder="Search...">
+          </form>
+        </div>
+      </div>
+</nav>
+{% endblock %}
+
+{% block contenido %}
+<div class="row">
+	<hr>
+	<div class="col-lg-8">
+
+	</div>
+	<div class="col-lg-4">
+			<a href="/flujo/crear" class="btn btn-primary" role="button">Crear Flujo</a>
+		  	<a href="/actividad/crear" class="btn btn-primary" role="button">Crear Actividad</a>
+			<a href="/actividades" class="btn btn-primary" role="button">Listar Actividad</a>
+			<a href="/" class="btn btn-info" role="button">Atras</a>
+
+	</div>
+</div>
+
+<div class="row">
+	<ul>
+		<h2 class="sub-header">Administrar Flujos</h2>
+		{% if mensajes %}
+			<div class="alert alert-success" role="alert">
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				{{mensajes}}
+			</div>
+		{% endif %}
+		<hr>
+	</ul>
+</div>
+<ul>
+	<div class="table-responsive">
+			<table class="table table-striped">
+			  <thead>
+				<tr>
+					<th>#</th>
+					<th>Nombre Actividad</th>
+					<th>Accion</th>
+				</tr>
+			  </thead>
+			  <tbody>
+					{% for dato in actividades %}
+						<tr>
+							<td></td>
+							<td>{{dato.nombre}}</td>
+							<td>
+
+								{%if dato.user.is_active%}
+									<a href='{% url "flujos.views.desactivar" dato.id %}' title="Desactivar" aria-label="Close" class="btn btn-danger" role="button">Desactivar</a>
+								{% else %}
+									<a href='{% url "flujos.views.activar" dato.id %}' title="Activar" aria-label="Close" class="btn btn-success" role="button">Activar</a>
+								{%endif %}
+							</td>
+						</tr>
+					{% empty %}
+						<li>No hay usuarios registrados, aún.</li>
+					{% endfor %}
+			  </tbody>
+			</table>
+	</div>
+</ul>
+{% endblock %}
