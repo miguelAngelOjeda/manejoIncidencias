@@ -17,7 +17,7 @@
             <li><a href="/usuarios/">Usuarios</a></li>
             <li><a href="/proyectos/">Proyectos</a></li>
             <li><a href="/flujos/">Flujos</a></li>
-            <li><a href="#">Help</a></li>
+            <li><a href="salir">Salir</a></li>
           </ul>
           <form class="navbar-form navbar-right">
             <input type="text" class="form-control" placeholder="Search...">
@@ -41,30 +41,14 @@
 </div>
 <div class="row">
 	<ul>
-		<h2 class="sub-header">Nuevo Usuario</h2>
+		<h2 class="sub-header">Nuevo Proyecto</h2>
 		<hr>
 	</ul>
 </div>
 <ul>
 	<div class= "row">
-        {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
 		<form id='formulario' method='post' action=''>{% csrf_token %}
-            {% for field in formulario %}
-				    <div class="field_container">
-				        <div class="form-group col-md-4">
-                            <label  class="control-label">{{ field.label_tag }}</label>
-                            {{ field }}
-                        </div>
-				        <div class="clearfix"></div>
-				        {% if field.errors %}
-				    	<div class="row">
-					        <div class="label label-danger col-md-2">
-					        	{{ field.errors  }}
-							</div>
-						</div>
-					    {% endif %}
-				    </div>
-				{% endfor %}
+			<table>{{formulario}}</table>
 			<p><input type='submit' value='Registrar'/></p>
 		</form>
 	</div>

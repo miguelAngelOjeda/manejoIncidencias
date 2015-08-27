@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
-{% block titulo %}Nuevo usuario{% endblock %}
-{% block encabezado %} 
-	<nav class="navbar navbar-inverse navbar-fixed-top">
+{% block encabezado %}
+<nav class="navbar navbar-inverse navbar-fixed-top">
 	<div class="container-fluid">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -17,7 +16,7 @@
             <li><a href="/usuarios/">Usuarios</a></li>
             <li><a href="/proyectos/">Proyectos</a></li>
             <li><a href="/flujos/">Flujos</a></li>
-            <li><a href="#">Help</a></li>
+            <li><a href="salir">Salir</a></li>
           </ul>
           <form class="navbar-form navbar-right">
             <input type="text" class="form-control" placeholder="Search...">
@@ -26,6 +25,7 @@
       </div>
 </nav>
 {% endblock %}
+
 {% block contenido %}
 <div class="row">
 	<hr>
@@ -34,39 +34,48 @@
 	</div>
 	<div class="col-lg-2">
 
-		  	<a href="/usuarios/" class="btn btn-primary" role="button">Cancelar</a>
+		  	<a href="/proyecto/nuevo" class="btn btn-primary" role="button">Agregar</a>
 			<a href="/" class="btn btn-info" role="button">Atras</a>
 
 	</div>
 </div>
+
 <div class="row">
 	<ul>
-		<h2 class="sub-header">Nuevo Usuario</h2>
+		<h2 class="sub-header">Proyectos</h2>
 		<hr>
 	</ul>
 </div>
 <ul>
-	<div class= "row">
-        {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
-		<form id='formulario' method='post' action=''>{% csrf_token %}
-            {% for field in formulario %}
-				    <div class="field_container">
-				        <div class="form-group col-md-4">
-                            <label  class="control-label">{{ field.label_tag }}</label>
-                            {{ field }}
-                        </div>
-				        <div class="clearfix"></div>
-				        {% if field.errors %}
-				    	<div class="row">
-					        <div class="label label-danger col-md-2">
-					        	{{ field.errors  }}
-							</div>
-						</div>
-					    {% endif %}
-				    </div>
-				{% endfor %}
-			<p><input type='submit' value='Registrar'/></p>
-		</form>
+	<div class="table-responsive">
+			<table class="table table-striped">
+			  <thead>
+				<tr>
+					 <th>#</th>
+					<th>Codigo</th>
+					<th>Nombre Corto</th>
+					<th>Estado</th>
+					<th>Scrum Master</th>
+					<th></th>
+				</tr>
+			  </thead>
+			  <tbody>
+					{% for dato in proyectos %}
+					<tr>
+						<td></td>
+						<td>{{dato.codigo|capfirst}}</td>
+						<td>{{dato.nombre_corto}}</td>
+						<td>{{dato.estado}}</td>
+						<td>{{dato.scrum_master.username}}</td>
+						<td>
+							<button type="button" class="btn btn-default" data-tooltip="Desactivar" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						</td>
+					</tr>
+						{% empty %}
+						<li>No hay proyectos registrados, aún.</li>
+						{% endfor %}
+			  </tbody>
+			</table>
 	</div>
 </ul>
 {% endblock %}
