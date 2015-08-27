@@ -31,7 +31,7 @@ def nueva_actividad(request):
         if formulario.is_valid:
             try:
                 formulario.save()
-                return HttpResponseRedirect('/')
+                return HttpResponseRedirect('/../actividades')
             except:
                 error = 'Error al procesar la entidad'
                 return render_to_response('crear_actividad.html',{'formulario':formulario,'errors':error}, context_instance=RequestContext(request))
@@ -51,7 +51,7 @@ def nuevo_flujo(request):
         if formulario.is_valid:
             try:
                 formulario.save()
-                return HttpResponseRedirect('/')
+                return HttpResponseRedirect('/../flujos')
             except:
                 error = 'Error al procesar la entidad'
                 return render_to_response('crear_flujo.html',{'formulario':formulario,'errors':error}, context_instance=RequestContext(request))
