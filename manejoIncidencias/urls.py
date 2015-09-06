@@ -41,5 +41,7 @@ urlpatterns = patterns('',
     url(r'^activate/(?P<pk_usuario>\d+)$','flujos.views.activar'),
     url(r'actividad/crear$','flujos.views.nueva_actividad'),
     url(r'^proyecto/nuevo$','proyecto.views.nuevo_proyecto'),
-    url(r'flujo/crear$','flujos.views.nuevo_flujo'),
+    url(r'flujo/crear$', 'flujos.views.nuevo_flujo'),
+    url(r'userstory$', 'user_story.views.lista_user_story'),
+    url(r'userstory/crear$', 'user_story.views.nuevo_userstory')
 )
