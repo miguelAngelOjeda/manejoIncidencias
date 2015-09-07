@@ -16,18 +16,18 @@ class UserCreateForm(UserCreationForm):
     @ivar UserCreationForm: Se hereda el formulario incorporado en django para la creacion
                             del objeto User, para usar sus funcionalidades
     """
-    first_name = forms.CharField(max_length=30, required=True, label='Nombre')
+    first_name = forms.CharField(max_length=30, required=True, label='Nombre', error_messages={'required': 'Ingrese un nombre de Usuarios', 'max_length': 'Longitud maxima: 14', 'min_length': 'Longitud minima: 5 caracteres'})
     last_name = forms.CharField(max_length=30, required=True, label='Apellido')
     password1 = forms.RegexField(label='Password', regex=r'^[\w.@+-]+$', min_length=5,
                                  widget=forms.PasswordInput,
-                                 help_text='Minimo 5 carateres. Letras, digitos y @/./+/-/_ solamente.')
+                                 help_text='Minimo 5 carateres. Letras, digitos y @/./+/-/_ solamente.', error_messages={'required': 'Ingrese contrasenha', 'max_length': 'Longitud maxima: 14', 'min_length': 'Longitu minima: 5 caracteres',})
     password2 = forms.RegexField(label='Password (Confirmacion)', regex=r'^[\w.@+-]+$', min_length=5,
-                                 widget=forms.PasswordInput)
+                                 widget=forms.PasswordInput, error_messages={'required': 'Ingrese contrasenha', 'max_length': 'Longitud maxima: 14', 'min_length': 'Longitu minima: 5 caracteres',})
     email = forms.EmailField(required=True)
     telefono = forms.RegexField(regex=r'^[\d()+-]+$', max_length=20,
-                                help_text='Digitos y + - ( ) solamente.')
-    direccion = forms.CharField(max_length=50)
-    documento = forms.CharField(max_length=10)
+                                help_text='Digitos y + - ( ) solamente.',required=False)
+    direccion = forms.CharField(max_length=50,required=False)
+    documento = forms.CharField(max_length=10,required=True,error_messages={'required': 'Ingrese Documento', })
 
     class Meta:
         model = User
@@ -43,7 +43,7 @@ class UserCreateForm(UserCreationForm):
         return user, user_profile
 
 
-class UserUpdateForm(forms.ModelForm):
+class UsuarioEditarForm(forms.ModelForm):
     """
     Clase que contiene los campos del formulario, necesarios para la modificacion de Usuarios
     registrados en la base de datos.
@@ -52,49 +52,32 @@ class UserUpdateForm(forms.ModelForm):
     @ivar forms.ModelForm: Se hereda el formulario incorporado en django para los modelos
                             para usar sus funcionalidades
     """
+    Nombre_de_Usuario = forms.CharField(widget=forms.TextInput(), max_length=14, required=True, error_messages={'required': 'Ingrese un nombre de Usuarios', 'max_length': 'Longitud maxima: 14', 'min_length': 'Longitud minima: 5 caracteres'})
+    Contrasenha = forms.CharField(widget=forms.PasswordInput(render_value=False), max_length=14, min_length=5, required=False, error_messages={'required': 'Ingrese contrasenha', 'max_length': 'Longitud maxima: 14', 'min_length': 'Longitu minima: 5 caracteres',})
+    Nueva_contrasenha = forms.CharField(widget=forms.PasswordInput(render_value=False), max_length=14, min_length=5, required=False, error_messages={'required': 'Ingrese contrasenha', 'max_length': 'Longitud maxima: 14', 'min_length': 'Longitu minima: 5 caracteres',})
+    Email = forms.CharField(widget=forms.TextInput(), required=False)
+    Nombre = forms.CharField(widget=forms.TextInput(), max_length=30, required=True, error_messages={'required': 'Ingrese nombre', })
+    Apellido = forms.CharField(widget=forms.TextInput(), max_length=30, required=True, error_messages={'required': 'Ingrese Apellido', })
+    Telefono = forms.CharField(widget=forms.TextInput(), required=False)
+    Direccion = forms.CharField(widget=forms.TextInput(), max_length=30, required=False)
+    Documento = forms.CharField(widget=forms.TextInput(), max_length=30, required=True, error_messages={'required': 'Ingrese Documento', })
 
-    def __init__(self, *args, **kwargs):
-        super(UserUpdateForm, self).__init__(*args, **kwargs)
-        eluser = Usuario.objects.get(user=kwargs['instance'].pk)
 
-        telefono = eluser.telefono
-        direccion = eluser.direccion
-        documento = eluser.documento
-
-        self.fields['telefono'].initial = telefono
-        self.fields['direccion'].initial = direccion
-        self.fields['documento'].initial = documento
-
-    first_name = forms.CharField(max_length=30, required=True, label='Nombre')
-    last_name = forms.CharField(max_length=30, required=True, label='Apellido')
-    email = forms.EmailField(required=True)
-    telefono = forms.RegexField(regex=r'^[\d()+-]+$', max_length=20,
-                                help_text='Digitos y + - ( ) solamente.')
-    direccion = forms.CharField(max_length=50)
-
-    class Meta:
-        model = User
-        fields = ['username', 'first_name', 'last_name', 'email']
-
-    def clean_first_name(self):
-      diccionario_limpio = self.cleaned_data
-
-      first_name = diccionario_limpio.get('first_name')
-
-      if len(first_name) <= "":
-         raise forms.ValidationError("El Nombre no debe estar vacio")
-
-      return first_name
+    def clean(self):
+        super(forms.Form,self).clean()
+        if 'Contrasenha' in self.cleaned_data and 'Confirmar_contrasenha' in self.cleaned_data:
+            if self.cleaned_data['Contrasenha'] != self.cleaned_data['Confirmar_contrasenha']:
+                self._errors['Contrasenha'] = [u'Las contrasenhas deben coincidir.']
+                self._errors['Confirmar_contrasenha'] = [u'Las contrasenhas deben coincidir.']
+        return self.cleaned_data
 
     def save(self, commit=True):
         usuario = Usuario.objects.get(user=self.instance)
-        user = super(UserUpdateForm, self).save(commit=True)
+        user = super(UsuarioEditarForm, self).save(commit=True)
         usuario.telefono = self.cleaned_data['telefono']
         usuario.direccion = self.cleaned_data['direccion']
-        usuario.documento = self.cleaned_data['documento']
         usuario.save()
         return user, usuario
-
 
 class MyPasswordChangeForm(AdminPasswordChangeForm):
     """

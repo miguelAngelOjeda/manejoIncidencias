@@ -1,0 +1,133 @@
+{% extends 'base.html' %}
+{% block encabezado %}
+<nav class="navbar navbar-inverse navbar-fixed-top">
+	<div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Gestion de Proyectos</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/usuarios/">Usuarios</a></li>
+            <li><a href="/proyectos/">Proyectos</a></li>
+            <li><a href="/flujos/">Flujos</a></li>
+            <li><a href="salir">Salir</a></li>
+          </ul>
+          <form class="navbar-form navbar-right">
+            <input type="text" class="form-control" placeholder="Search...">
+          </form>
+        </div>
+      </div>
+</nav>
+{% endblock %}
+
+{% block contenido %}
+<div class="row">
+	<hr>
+	<div class="col-lg-8">
+
+	</div>
+	<div class="col-lg-4">
+			<a href="/userstory/crear" class="btn btn-primary" role="button">Crear UserStory</a>
+			<a href="/userstory/estado/" class="btn btn-primary" role="button">Asignar Estado</a>
+			<a href="/flujos" class="btn btn-info" role="button">Atras</a>
+
+	</div>
+</div>
+
+<div class="row">
+	<ul>
+		<h2 class="sub-header">Administrar User Story</h2>
+		{% if mensajes %}
+			<div class="alert alert-success" role="alert">
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				{{mensajes}}
+			</div>
+		{% endif %}
+		<hr>
+	</ul>
+</div>
+<ul>
+	<div class="table-responsive">
+		<table class="table table-striped">
+		  <thead>
+			<tr>
+				 <th>#</th>
+				<th>Nombre User Story</th>
+				<th>Descripcion</th>
+				<th>Fecha Creacion</th>
+				<th>Valor de Negocio</th>
+				<th>Valor de Tecnico</th>
+				<th>Prioridad</th>
+				<th>Tipo</th>
+				<th>Autor</th>
+				<th>Estado Scrum</th>
+				<th>Estado Kanbam</th>
+			</tr>
+		  </thead>
+		  <tbody>
+			{% for dato in user_story %}
+					<tr>
+						<td>{{dato.id}}</td>
+						<td>{{dato.nombre}}</td>
+						<td>{{dato.descripcion}}</td>
+						<td>{{dato.fecha_creacion}}</td>
+						<td>{{dato.valor_negocio}}</td>
+						<td>{{dato.valor_tecnico}}</td>
+						<td>{{dato.prioridad}}</td>
+						<td>{{dato.tipo}}</td>
+						<td>{{dato.autor}}</td>
+						<td>{{dato.estado_scrum}}</td>
+						{% for dato2 in flujo_user_story %}
+							{% if dato.id == dato2.user_story %}
+							<td>{{dato2.estado_kamban}}</td>
+							{% endif%}
+						{% endfor %}
+						<td>
+							<a href='{% url "user_story.views.consultar_estado" dato.id %}' title="Consultar" aria-label="Close" class="btn btn-success" role="button">Asignar</a>
+						</td>
+					</tr>
+					<tr>
+					</tr>
+			{% empty %}
+					<li>No hay usuarios registrados, aún.</li>
+			{% endfor %}
+		  </tbody>
+		</table>
+		<table class="table table-striped">
+			<thead>
+			<tr>
+				<th>Nombre</th>
+				<th>Actividad</th>
+				<th>User Story</th>
+				<th>Estado</th>
+			</tr>
+			</thead>
+			<tbody>
+			{% for dato2 in flujo_user_story %}
+				{% for dato in user_story%}
+
+			<tr>
+				<td>{{dato.nombre}}</td>
+				<td>{{dato2.actividad}}</td>
+				<td>{{dato2.user_story}}</td>
+				<td>{{dato2.estado_kamban}}</td>
+				<td>
+					<a href='{% url "user_story.views.consultar_estado" dato2.id %}' title="Consultar" aria-label="Close" class="btn btn-success" role="button">Cambiar Estado</a>
+				</td>
+			</tr>
+				{% endfor %}
+			{% endfor %}
+			</tbody>
+		</table >
+
+
+
+	</div>
+</ul>
+{% endblock %}

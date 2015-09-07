@@ -15,7 +15,7 @@
           <ul class="nav navbar-nav navbar-right">
             <li><a href="/usuarios/">Usuarios</a></li>
             <li><a href="/proyectos/">Proyectos</a></li>
-            <li><a href="#">Profile</a></li>
+            <li><a href="/flujos/">Flujos</a></li>
             <li><a href="salir">Salir</a></li>
           </ul>
           <form class="navbar-form navbar-right">
@@ -58,7 +58,7 @@
 			  <thead>
 				<tr>
 					 <th>#</th>
-					<th>Nombre</th>
+c					<th>Nombre</th>
 					<th>Email</th>
 					<th>Telefono</th>
 					<th>Accion</th>
@@ -74,9 +74,11 @@
 							<td>
 
 								{%if dato.user.is_active%}
-									<a href='{% url "usuario.views.desactivar" dato.user.id %}' title="Desactivar" aria-label="Close" class="btn btn-danger" role="button">Desactivar</a>
+									<a href='{% url "usuario.views.consultarUsuario" dato.user.id %}' title="Visualizar" aria-label="Close" class="btn btn-info glyphicon glyphicon-eye-open" role="button"></a>
+									<a href='{% url "usuario.views.desactivar" dato.user.id %}' title="Desactivar" aria-label="Close" class="btn btn-danger glyphicon glyphicon-remove-sign" role="button"></a>
 								{% else %}
-									<a href='{% url "usuario.views.activar" dato.user.id %}' title="Activar" aria-label="Close" class="btn btn-success" role="button">Activar</a>
+									<a href='{% url "usuario.views.consultarUsuario" dato.user.id %}' title="Visualizar" aria-label="Close" class="btn btn-info glyphicon glyphicon-eye-open" role="button">
+									<a href='{% url "usuario.views.activar" dato.user.id %}' title="Activar" aria-label="Close" class="btn btn-success glyphicon glyphicon-ok-sign" role="button"></a>
 								{%endif %}
 							</td>
 						</tr>

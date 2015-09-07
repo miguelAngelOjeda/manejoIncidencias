@@ -140,6 +140,8 @@ INSTALLED_APPS = (
     'manejoIncidencias',
     'usuario',
     'proyecto',
+    'flujos',
+    'user_story'
 )
 
 # A sample logging configuration. The only tangible logging

@@ -14,10 +14,10 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="/usuarios/">Usuarios</a></li>
+            <li><a href="/usuarios">Usuarios</a></li>
             <li><a href="/proyectos/">Proyectos</a></li>
             <li><a href="/flujos/">Flujos</a></li>
-            <li><a href="salir">Salir</a></li>
+            <li><a href="salir">Help</a></li>
           </ul>
           <form class="navbar-form navbar-right">
             <input type="text" class="form-control" placeholder="Search...">
@@ -29,26 +29,39 @@
 {% block contenido %}
 <div class="row">
 	<hr>
-	<div class="col-lg-10">
+	<div class="col-lg-8">
 
 	</div>
-	<div class="col-lg-2">
-
-		  	<a href="/usuarios/" class="btn btn-primary" role="button">Cancelar</a>
-			<a href="/" class="btn btn-info" role="button">Atras</a>
-
+	<div class="col-lg-4">
+			<a href="/userstory" class="btn btn-info" role="button">Atras</a>
 	</div>
 </div>
 <div class="row">
 	<ul>
-		<h2 class="sub-header">Nuevo Proyecto</h2>
+		<h2 class="sub-header">Crear User Story</h2>
 		<hr>
 	</ul>
 </div>
 <ul>
 	<div class= "row">
+        {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
 		<form id='formulario' method='post' action=''>{% csrf_token %}
-			<table>{{formulario}}</table>
+            {% for field in formulario %}
+				    <div class="field_container">
+				        <div class="form-group col-md-4">
+                            <label  class="control-label">{{ field.label_tag }}</label>
+                            {{ field }}
+                        </div>
+				        <div class="clearfix"></div>
+				        {% if field.errors %}
+				    	<div class="row">
+					        <div class="label label-danger col-md-2">
+					        	{{ field.errors  }}
+							</div>
+						</div>
+					    {% endif %}
+				    </div>
+			{% endfor %}
 			<p><input type='submit' value='Registrar'/></p>
 		</form>
 	</div>

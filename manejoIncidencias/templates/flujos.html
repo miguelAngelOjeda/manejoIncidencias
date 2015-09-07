@@ -29,12 +29,14 @@
 {% block contenido %}
 <div class="row">
 	<hr>
-	<div class="col-lg-10">
+	<div class="col-lg-8">
 
 	</div>
-	<div class="col-lg-2">
-
-		  	<a href="/proyecto/nuevo" class="btn btn-primary" role="button">Agregar</a>
+	<div class="col-lg-4">
+			<a href="/flujo/crear" class="btn btn-primary" role="button">Crear Flujo</a>
+		  	<a href="/actividad/crear" class="btn btn-primary" role="button">Crear Actividad</a>
+			<a href="/actividades" class="btn btn-primary" role="button">Listar Actividad</a>
+			<a href="/userstory" class="btn btn-info" role="button">User Story</a>
 			<a href="/" class="btn btn-info" role="button">Atras</a>
 
 	</div>
@@ -42,7 +44,13 @@
 
 <div class="row">
 	<ul>
-		<h2 class="sub-header">Proyectos</h2>
+		<h2 class="sub-header">Administrar Flujos</h2>
+		{% if mensajes %}
+			<div class="alert alert-success" role="alert">
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				{{mensajes}}
+			</div>
+		{% endif %}
 		<hr>
 	</ul>
 </div>
@@ -52,28 +60,30 @@
 			  <thead>
 				<tr>
 					 <th>#</th>
-					<th>Codigo</th>
-					<th>Nombre Corto</th>
-					<th>Estado</th>
-					<th>Scrum Master</th>
-					<th></th>
+					<th>Nombre Flujo</th>
+					<th>Descripcion</th>
+					<th>Proyecto Nombre</th>
 				</tr>
 			  </thead>
 			  <tbody>
-					{% for dato in proyectos %}
-					<tr>
-						<td></td>
-						<td>{{dato.codigo|capfirst}}</td>
-						<td>{{dato.nombre_corto}}</td>
-						<td>{{dato.estado}}</td>
-						<td>{{dato.scrum_master.username}}</td>
-						<td>
-							<button type="button" class="btn btn-default" data-tooltip="Desactivar" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-						</td>
-					</tr>
-						{% empty %}
-						<li>No hay proyectos registrados, aún.</li>
-						{% endfor %}
+					{% for dato in flujos %}
+						<tr>
+							<td></td>
+							<td>{{dato.nombre}}</td>
+							<td>{{dato.descripcion}}</td>
+							<td>{{dato.proyecto.nombre_largo}}</td>
+							<td>
+
+								{%if dato.user.is_active%}
+									<a href='{% url "flujos.views.desactivar" dato.id %}' title="Desactivar" aria-label="Close" class="btn btn-danger" role="button">Desactivar</a>
+								{% else %}
+									<a href='{% url "flujos.views.activar" dato.id %}' title="Activar" aria-label="Close" class="btn btn-success" role="button">Activar</a>
+								{%endif %}
+							</td>
+						</tr>
+					{% empty %}
+						<li>No hay usuarios registrados, aún.</li>
+					{% endfor %}
 			  </tbody>
 			</table>
 	</div>
