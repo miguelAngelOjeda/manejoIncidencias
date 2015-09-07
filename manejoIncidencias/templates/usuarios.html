@@ -74,11 +74,11 @@
 							<td>
 
 								{%if dato.user.is_active%}
-									<a href='{% url "usuario.views.consultarUsuario" dato.user.id %}' title="Visualizar" aria-label="Close" class="btn btn-info glyphicon glyphicon-eye-open" role="button"></a>
-									<a href='{% url "usuario.views.desactivar" dato.user.id %}' title="Desactivar" aria-label="Close" class="btn btn-danger glyphicon glyphicon-remove-sign" role="button"></a>
+									<a href='{% url "usuario.views.consultarUsuario" dato.id %}' title="Visualizar" aria-label="Close" class="btn btn-info glyphicon glyphicon-eye-open" role="button"></a>
+									<a href='{% url "usuario.views.desactivar" dato.id %}' title="Desactivar" aria-label="Close" class="btn btn-danger glyphicon glyphicon-remove-sign" role="button"></a>
 								{% else %}
-									<a href='{% url "usuario.views.consultarUsuario" dato.user.id %}' title="Visualizar" aria-label="Close" class="btn btn-info glyphicon glyphicon-eye-open" role="button">
-									<a href='{% url "usuario.views.activar" dato.user.id %}' title="Activar" aria-label="Close" class="btn btn-success glyphicon glyphicon-ok-sign" role="button"></a>
+									<a href='{% url "usuario.views.consultarUsuario" dato.id %}' title="Visualizar" aria-label="Close" class="btn btn-info glyphicon glyphicon-eye-open" role="button">
+									<a href='{% url "usuario.views.activar" dato.id %}' title="Activar" aria-label="Close" class="btn btn-success glyphicon glyphicon-ok-sign" role="button"></a>
 								{%endif %}
 							</td>
 						</tr>
