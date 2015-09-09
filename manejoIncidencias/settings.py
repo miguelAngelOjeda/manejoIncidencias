@@ -141,6 +141,7 @@ INSTALLED_APPS = (
     'usuario',
     'proyecto',
     'flujos',
+    'user_story'
 )
 
 # A sample logging configuration. The only tangible logging

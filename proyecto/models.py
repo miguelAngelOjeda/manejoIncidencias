@@ -26,7 +26,7 @@ class Proyecto(models.Model):
     is_active = models.BooleanField(default=True)
     cancelado = models.BooleanField(default=False)
     scrum_master = models.OneToOneField(User, null=True, related_name='scrum_master')
-    equipo = models.ManyToManyField(User, null=True)
+    equipo = models.ManyToManyField(User, null=False)
     estado = models.CharField(max_length=15, choices=ESTADOS_PROYECTO, default='No iniciado')
 
     def __unicode__(self):

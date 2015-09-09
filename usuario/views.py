@@ -8,6 +8,7 @@ from django.template import RequestContext
 from usuario.models import Usuario
 from django.contrib.auth.forms import AuthenticationForm
 from forms import UserCreateForm,UsuarioEditarForm
+from django.contrib.auth.hashers import check_password, make_password
 
 
 # Create your views here.
@@ -113,18 +114,49 @@ def usuarioEditar(request,pk_usuario):
         formulario = UsuarioEditarForm(request.POST)
         if formulario.is_valid:
             try:
-                formulario.clean()
-                username = formulario.cleaned_data['Nombre_de_Usuario']
-                password = formulario.cleaned_data['Contrasenha']
-                nuevo_password = formulario.cleaned_data['Nueva_contrasenha']
-                email = formulario.cleaned_data['Email']
-                first_name = formulario.cleaned_data['Nombre']
-                last_name = formulario.cleaned_data['Apellido']
-                formulario.save()
-                return HttpResponseRedirect('/')
+                user = get_object_or_404(User, pk=usuario.user.id)
+                print request.POST['last_name']
+                password = request.POST['Contrasenha']
+                nuevo_password = request.POST['Nueva_contrasenha']
+                email = request.POST['email']
+                first_name = request.POST['first_name']
+                last_name = request.POST['last_name']
+                telefono = request.POST['telefono']
+                direccion = request.POST['direccion']
+                documento = request.POST['documento']
+                if password:
+                    if check_password(password, user.password):
+                        password = make_password(nuevo_password)
+                    else:
+                        error = 'Password incorrecto'
+                        return render_to_response('editarUsuario.html',{'formulario':formulario,'errors':error}, context_instance=RequestContext(request))
+
+                else:
+                    password = user.password
+
+
+                user.password = password
+                user.email = email
+                user.first_name = first_name
+                user.last_name = last_name
+                user.save()
+
+                usuario.telefono = telefono
+                usuario.direccion = direccion
+                usuario.documento = documento
+
+                usuario.save()
+
+                exito = 'El usuario se modifico con exito'
+                return render_to_response('editarUsuario.html',{'formulario':formulario,'exito':exito}, context_instance=RequestContext(request))
+
+
             except:
                 error = 'Error al procesar la entidad'
-                return render_to_response('crear.html',{'formulario':formulario,'errors':error}, context_instance=RequestContext(request))
+                return render_to_response('editarUsuario.html',{'formulario':formulario,'errors':error}, context_instance=RequestContext(request))
     else:
-        formulario = UserCreateForm()
-    return render_to_response('crear.html', {'formulario': formulario}, context_instance=RequestContext(request))
+        data = {'Nombre_de_Usuario': usuario.user.username, 'Contrasenha': '', 'Nueva_contrasenha': '',
+                    'email': usuario.user.email, 'first_name': usuario.user.first_name, 'last_name': usuario.user.last_name,
+                    'telefono' : usuario.telefono,'direccion' : usuario.direccion, 'documento' : usuario.documento }
+        formulario = UsuarioEditarForm(data)
+    return render_to_response('editarUsuario.html', {'formulario': formulario}, context_instance=RequestContext(request))
