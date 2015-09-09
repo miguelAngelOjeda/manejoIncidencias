@@ -46,16 +46,16 @@ def consultarProyecto(request, pk_proyecto):
 
 def desactivar(request, pk_proyecto):
     """
-    Funcion que inactiva la cuenta de un usuario seleccionado.
+    Funcion que inactiva la cuenta de un proyecto seleccionado.
 
     @type request: django.http.HttpRequest
     @param request: Contiene informacion sobre la peticion actual
 
-    @type pk_usuario: string
-    @param pk_usuario: id del usuario a ser inactivado
+    @type pk_proyecto: string
+    @param pk_proyecto: id del proyecto a ser inactivado
 
     @rtype: django.http.HttpResponseRedirect
-    @return: Renderiza usuarios/delete.html para obtener el formulario o
+    @return: Renderiza proyectos/delete.html para obtener el formulario o
             redirecciona a la vista index de usuarios si el usuario fue desactivado.
     """
 
@@ -69,16 +69,16 @@ def desactivar(request, pk_proyecto):
 
 def activar(request, pk_proyecto):
     """
-    Funcion que inactiva la cuenta de un usuario seleccionado.
+    Funcion que inactiva la cuenta de un proyecto seleccionado.
 
     @type request: django.http.HttpRequest
     @param request: Contiene informacion sobre la peticion actual
 
-    @type pk_usuario: string
-    @param pk_usuario: id del usuario a ser inactivado
+    @type pk_proyecto: string
+    @param pk_proyecto: id del usuario a ser inactivado
 
     @rtype: django.http.HttpResponseRedirect
-    @return: Renderiza usuarios/delete.html para obtener el formulario o
+    @return: Renderiza proyectos/delete.html para obtener el formulario o
             redirecciona a la vista index de usuarios si el usuario fue desactivado.
     """
 

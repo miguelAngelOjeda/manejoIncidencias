@@ -64,15 +64,6 @@ class UsuarioEditarForm (forms.Form):
 
 
 
-    def save(self, commit=True):
-        if not commit:
-            raise NotImplementedError("No se puede crear User y Usuario sin guardar en la base de datos")
-        user = super(UserCreateForm, self).save(commit=True)
-        user_profile = Usuario(user=user, telefono=self.cleaned_data['telefono'],
-                               direccion=self.cleaned_data['direccion'], documento=self.cleaned_data['documento'])
-        user_profile.save()
-        return user, user_profile
-
 class MyPasswordChangeForm(AdminPasswordChangeForm):
     """
     Clase que verifica si la contraseÃ±a cumple los requisitos necesarios.
