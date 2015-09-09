@@ -1,0 +1,16 @@
+[epydoc]
+
+name: GPSK
+
+modules: flujos,proyecto,usuario,manejoIncidencia
+
+output: html
+
+target: C:\Inge 2\manejoIncidencias\docs\
+
+verbosity: -5
+
+parse: yes
+
+introspect: no
+

@@ -34,7 +34,7 @@
 	</div>
 	<div class="col-lg-2">
 
-		  	<a href="/proyecto/nuevo" class="btn btn-primary" role="button">Agregar</a>
+		  	<a href="/proyecto/nuevo" class="btn btn-primary" role="button">Crear</a>
 			<a href="/" class="btn btn-info" role="button">Atras</a>
 
 	</div>
@@ -42,7 +42,7 @@
 
 <div class="row">
 	<ul>
-		<h2 class="sub-header">Proyectos</h2>
+		<h2 class="sub-header">Administrar Proyectos</h2>
 		<hr>
 	</ul>
 </div>
@@ -68,7 +68,14 @@
 						<td>{{dato.estado}}</td>
 						<td>{{dato.scrum_master.username}}</td>
 						<td>
-							<button type="button" class="btn btn-default" data-tooltip="Desactivar" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							{%if dato.is_active%}
+								<a href='{% url "proyecto.views.consultarProyecto" dato.id %}' title="Visualizar" aria-label="Close" class="btn btn-info glyphicon glyphicon-eye-open" role="button"></a>
+								<a href='{% url "proyecto.views.proyectoEditar" dato.id %}' title="Editar" aria-label="Close" class="btn btn-info glyphicon glyphicon-pencil" role="button"></a>
+								<a href='{% url "proyecto.views.desactivar" dato.id %}' title="Eliminar" aria-label="Close" class="btn btn-danger glyphicon glyphicon-remove-sign" role="button"></a>
+							{% else %}
+								<a href='{% url "proyecto.views.consultarProyecto" dato.id %}' title="Visualizar" aria-label="Close" class="btn btn-info glyphicon glyphicon-eye-open" role="button"></a>
+								<a href='{% url "proyecto.views.activar" dato.id %}' title="Activar" aria-label="Close" class="btn btn-success glyphicon glyphicon-ok-sign" role="button"></a>
+							{%endif %}
 						</td>
 					</tr>
 						{% empty %}

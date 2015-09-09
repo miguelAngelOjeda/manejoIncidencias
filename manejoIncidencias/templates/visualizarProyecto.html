@@ -15,10 +15,9 @@
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
             <li><a href="/usuarios/">Usuarios</a></li>
-            <li><a href="/proyectos/">Proyectos</a></li>
+            <li><a href="#">Proyectos</a></li>
             <li><a href="/flujos/">Flujos</a></li>
-			<li><a href="salir">Salir</a></li>
-
+            <li><a href="#">Help</a></li>
           </ul>
           <form class="navbar-form navbar-right">
             <input type="text" class="form-control" placeholder="Search...">
@@ -42,32 +41,24 @@
 </div>
 <div class="row">
 	<ul>
-		<h2 class="sub-header">Crear Usuario</h2>
+		<h2 class="sub-header">{{ usuario.user.username }}</h2>
 		<hr>
 	</ul>
 </div>
 <ul>
 	<div class= "row">
         {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
-		<form id='formulario' method='post' action=''>{% csrf_token %}
-            {% for field in formulario %}
-				    <div class="field_container">
-				        <div class="form-group col-md-4">
-                            <label  class="control-label">{{ field.label_tag }}</label>
-                            {{ field }}
-                        </div>
-				        <div class="clearfix"></div>
-				        {% if field.errors %}
-				    	<div class="row">
-					        <div class="label label-danger col-md-2">
-					        	{{ field.errors  }}
-							</div>
-						</div>
-					    {% endif %}
-				    </div>
-				{% endfor %}
-			<p><input type='submit' value='Registrar'/></p>
-		</form>
+		<div class="content-secondary">
+
+			<p><h4>Codigo: <span class="label label-default">{{ proyecto.codigo }}</span></h4></p>
+			<p><h4>Nombre Corto: <span class="label label-default">{{ proyecto.nombre_corto }}</span></h4></p>
+			<p><h4>Nombre Largo: <span class="label label-default">{{ proyecto.nombre_largo }}</span></h4></p>
+			<p><h4>Fecha Inicio: <span class="label label-default">{{ proyecto.fecha_inicio}}</span></h4></p>
+			<p><h4>Fecha Fin: <span class="label label-default">{{ proyecto.fecha_fin }}</span></h4></p>
+			<p><h4>Estado: <span class="label label-default">{{ proyecto.estado }}</span></h4></p>
+			<p><h4>Scrum Master: <span class="label label-default">{{ proyecto.scrum_master.username }}</span></h4></p>
+
+		</div>
 	</div>
 </ul>
 {% endblock %}
