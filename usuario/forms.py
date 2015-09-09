@@ -62,14 +62,7 @@ class UsuarioEditarForm (forms.Form):
     direccion = forms.CharField(widget=forms.TextInput(),max_length=50,required=False)
     documento = forms.CharField(widget=forms.TextInput(),max_length=10,required=True,error_messages={'required': 'Ingrese Documento', })
 
-    def clean(self):
-        super(forms.Form,self).clean()
-        if 'Contrasenha' in self.cleaned_data and 'Confirmar_contrasenha' in self.cleaned_data:
-            if self.cleaned_data['Contrasenha'] != self.cleaned_data['Confirmar_contrasenha']:
-                self._errors['Contrasenha'] = [u'Las contrasenhas deben coincidir.']
-                self._errors['Confirmar_contrasenha'] = [u'Las contrasenhas deben coincidir.']
 
-        return self.cleaned_data
 
     def save(self, commit=True):
         if not commit:

@@ -50,13 +50,13 @@
         {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
 		<div class="content-secondary">
 
-			<p><h4>Nombre_de_Usuario: <span class="label label-default">{{ usuario.user.username }}</span></h4></p>
-			<p><h4>Nombre: <span class="label label-default">{{ usuario.user.first_name }}</span></h4></p>
-			<p><h4>Apellido: <span class="label label-default">{{ usuario.user.last_name }}</span></h4></p>
-			<p><h4>Documento: <span class="label label-default">{{ usuario.documento }}</span></h4></p>
-			<p><h4>Email: <span class="label label-default">{{ usuario.user.email }}</span></h4></p>
-			<p><h4>Telefono: <span class="label label-default">{{ usuario.telefono }}</span></h4></p>
-			<p><h4>Direccion: <span class="label label-default">{{ usuario.direccion }}</span></h4></p>
+			<p><h4>Codigo: <span class="label label-default">{{ proyecto.codigo }}</span></h4></p>
+			<p><h4>Nombre Corto: <span class="label label-default">{{ proyecto.nombre_corto }}</span></h4></p>
+			<p><h4>Nombre Largo: <span class="label label-default">{{ proyecto.nombre_largo }}</span></h4></p>
+			<p><h4>Fecha Inicio: <span class="label label-default">{{ proyecto.fecha_inicio}}</span></h4></p>
+			<p><h4>Fecha Fin: <span class="label label-default">{{ proyecto.fecha_fin }}</span></h4></p>
+			<p><h4>Estado: <span class="label label-default">{{ proyecto.estado }}</span></h4></p>
+			<p><h4>Scrum Master: <span class="label label-default">{{ proyecto.scrum_master.username }}</span></h4></p>
 
 		</div>
 	</div>
