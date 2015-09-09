@@ -12,9 +12,10 @@ import datetime
 
 class UserStory(models.Model):
     """
-
+    Clase UserStory.
+    Los campos definidos son nombre, descripcion, fecha de creacion, valor de negocio, valor tecnico, prioridad, tipo,
+    autor y estados SCRUM.
     """
-
     nombre = models.CharField(max_length=20)
     descripcion = models.CharField(max_length=40)
     fecha_creacion = models.DateField(default=datetime.date.today)
@@ -49,7 +50,11 @@ class UserStory(models.Model):
 
 
 class Flujouserstory(models.Model):
-
+    """
+    Clase FlujouserStory.
+    Relacionado a la clase UserStory y la clase Actividad.
+    Los campos definidos son actividad, user story y estados kanbam.
+    """
     actividad = models.ForeignKey(Actividad, related_name='user_story_actividad')
     user_story = models.ForeignKey(UserStory, related_name='user_story_flujo')
     ESTADOS_KAMBAN=(
