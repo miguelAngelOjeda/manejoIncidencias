@@ -4,7 +4,10 @@ from django.http import HttpResponse, HttpResponseRedirect
 from proyecto.models import Proyecto
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
-from forms import ProyectoForm
+from forms import ProyectoForm,ProyectoEditarForm
+from django.contrib.auth.models import User
+import datetime
+from django.utils.timezone import get_current_timezone
 
 # Create your views here.
 def proyectos(request):
@@ -36,7 +39,7 @@ def consultarProyecto(request, pk_proyecto):
 	@param pk_proyecto: identificador unico del proyecto
 
 	@rtype: django.HttpResponse
-	@return: consultar_usuario.html, donde se le despliega al usuario los datos
+	@return: visualizarProyecto.html, donde se le despliega al proyecto los datos
 
 	@author: Miguel Ojeda
 	"""
@@ -51,12 +54,12 @@ def desactivar(request, pk_proyecto):
     @type request: django.http.HttpRequest
     @param request: Contiene informacion sobre la peticion actual
 
-    @type pk_proyecto: string
+    @type pk_proyecto: Integer
     @param pk_proyecto: id del proyecto a ser inactivado
 
     @rtype: django.http.HttpResponseRedirect
     @return: Renderiza proyectos/delete.html para obtener el formulario o
-            redirecciona a la vista index de usuarios si el usuario fue desactivado.
+            redirecciona a la vista index de proyectos si el proyecto fue desactivado.
     """
 
     proyecto_detail = get_object_or_404(Proyecto, pk=pk_proyecto)
@@ -74,12 +77,12 @@ def activar(request, pk_proyecto):
     @type request: django.http.HttpRequest
     @param request: Contiene informacion sobre la peticion actual
 
-    @type pk_proyecto: string
-    @param pk_proyecto: id del usuario a ser inactivado
+    @type pk_proyecto: Integer
+    @param pk_proyecto: id del proyecto a ser inactivado
 
     @rtype: django.http.HttpResponseRedirect
     @return: Renderiza proyectos/delete.html para obtener el formulario o
-            redirecciona a la vista index de usuarios si el usuario fue desactivado.
+            redirecciona a la vista index de proyectos si el proyecto fue desactivado.
     """
 
     proyecto_detail = get_object_or_404(Proyecto, pk=pk_proyecto)
@@ -91,5 +94,3 @@ def activar(request, pk_proyecto):
     usuario = Proyecto.objects.all()
     return render_to_response('proyectos.html', {'proyectos': usuario,'mensajes':mensaje}, context_instance=RequestContext(request))
 
-def proyectoEditar(request,pk_proyecto):
-    pass

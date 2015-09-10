@@ -10,8 +10,7 @@ class Usuario(models.Model):
     Crea el perfil del usuario para cada instancia de la clase User,
     el cual define los campos username, password, nombre, apellido,
     email y groups. Se extiende la funcionalidad para almacenar
-    telefono, direccion y roles de proyecto, de esta manera, para cada
-    User existe un unico perfil de Usuario.
+    telefono, direccion.
     """
 
     user = models.OneToOneField(User)

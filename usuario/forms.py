@@ -49,7 +49,7 @@ class UsuarioEditarForm (forms.Form):
 
     @type forms.Form: django.forms
     @param forms.Form: Heredamos la clase forms.Form para hacer uso de sus funcionalidades
-    @author: Andrea Benitez
+    @author: Miguel Ojeda
 
     """
     first_name = forms.CharField(widget=forms.TextInput(),max_length=30, required=True, label='Nombre', error_messages={'required': 'Ingrese un nombre de Usuarios', 'max_length': 'Longitud maxima: 14', 'min_length': 'Longitud minima: 5 caracteres'})

@@ -22,7 +22,7 @@ def actividades(request):
 
 def nueva_actividad(request):
     """
-    Funcion que recibe un request y devuelve un response para crear un nuevo usuario
+    Funcion que recibe un request y devuelve un response para crear una nueva actividad
     @param request: django.http.HttpRequest.
     @return: render_to_response.
     """
@@ -42,7 +42,7 @@ def nueva_actividad(request):
 
 def nuevo_flujo(request):
     """
-    Funcion que recibe un request y devuelve un response para crear un nuevo usuario
+    Funcion que recibe un request y devuelve un response para crear un nuevo flujo
     @param request: django.http.HttpRequest.
     @return: render_to_response.
     """
@@ -58,22 +58,22 @@ def nuevo_flujo(request):
     else:
         formulario = FlujoCreateForm()
     return render_to_response('crear_flujo.html', {'formulario': formulario}, context_instance=RequestContext(request))
-def desactivar(request, pk_usuario):
+def desactivar(request, pk_flujo):
     """
-    Funcion que inactiva la cuenta de un usuario seleccionado.
+    Funcion que inactiva la cuenta de un flujo seleccionado.
 
     @type request: django.http.HttpRequest
     @param request: Contiene informacion sobre la peticion actual
 
-    @type pk_usuario: string
-    @param pk_usuario: id del usuario a ser inactivado
+    @type pk_flujo: Integer
+    @param pk_flujo: id del flujo a ser inactivado
 
     @rtype: django.http.HttpResponseRedirect
-    @return: Renderiza usuarios/delete.html para obtener el formulario o
-            redirecciona a la vista index de usuarios si el usuario fue desactivado.
+    @return: Renderiza flujos/delete.html para obtener el formulario o
+            redirecciona a la vista index de flujos si el flujo fue desactivado.
     """
 
-    user_detail = get_object_or_404(Actividad, pk=pk_usuario)
+    user_detail = get_object_or_404(Actividad, pk=pk_flujo)
     user_detail.is_active = False
     user_detail.save()
     mensaje ="El usuario se desactivo con exito."
@@ -81,22 +81,22 @@ def desactivar(request, pk_usuario):
     usuario = Actividad.objects.all()
     return render_to_response('usuarios.html', {'usuarios': usuario,'mensajes':mensaje}, context_instance=RequestContext(request))
 
-def activar(request, pk_usuario):
+def activar(request, pk_flujo):
     """
-    Funcion que inactiva la cuenta de un usuario seleccionado.
+    Funcion que inactiva la cuenta de un flujo seleccionado.
 
     @type request: django.http.HttpRequest
     @param request: Contiene informacion sobre la peticion actual
 
-    @type pk_usuario: string
-    @param pk_usuario: id del usuario a ser inactivado
+    @type pk_flujo: Integer
+    @param pk_flujo: id del flujo a ser inactivado
 
     @rtype: django.http.HttpResponseRedirect
-    @return: Renderiza usuarios/delete.html para obtener el formulario o
-            redirecciona a la vista index de usuarios si el usuario fue desactivado.
+    @return: Renderiza flujos/delete.html para obtener el formulario o
+            redirecciona a la vista index de flujos si el flujo fue desactivado.
     """
 
-    user_detail = get_object_or_404(Actividad, pk=pk_usuario)
+    user_detail = get_object_or_404(Actividad, pk=pk_flujo)
     user_detail.is_active = True
     user_detail.save()
 

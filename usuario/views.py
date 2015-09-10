@@ -105,9 +105,14 @@ def consultarUsuario(request, pk_usuario):
 
 def usuarioEditar(request,pk_usuario):
     """
-    Funcion que recibe un request y devuelve un response para crear un nuevo usuario
-    @param request: django.http.HttpRequest.
-    @return: render_to_response.
+    Clase que despliega el formulario para la modficacion del usuario.
+
+    @type id_usuario: Integer
+	@param id_usuario: identificador unico del usuario
+
+    @ivar form_class: Formulario que se utiliza para la modficacion de usuario
+    @type form_class: django.forms
+
     """
     usuario = Usuario.objects.get(id=pk_usuario)
     if request.method == 'POST':

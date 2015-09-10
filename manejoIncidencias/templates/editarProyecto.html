@@ -17,7 +17,8 @@
             <li><a href="/usuarios/">Usuarios</a></li>
             <li><a href="/proyectos/">Proyectos</a></li>
             <li><a href="/flujos/">Flujos</a></li>
-            <li><a href="salir">Salir</a></li>
+			<li><a href="salir">Salir</a></li>
+
           </ul>
           <form class="navbar-form navbar-right">
             <input type="text" class="form-control" placeholder="Search...">
@@ -41,30 +42,39 @@
 </div>
 <div class="row">
 	<ul>
-		<h2 class="sub-header">Crear Proyecto</h2>
+		<h2 class="sub-header">Modificar Proyecto</h2>
 		<hr>
 	</ul>
 </div>
 <ul>
 	<div class= "row">
+        {% if errors %}
+			<div class="alert alert-danger" role="alert">
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				{{errors}}
+			</div>
+		{% endif %}
+		{% if exito %}
+			<div class="alert alert-success" role="alert">
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				{{exito}}
+			</div>
+		{% endif %}
 		<form id='formulario' method='post' action=''>{% csrf_token %}
-			 {% for field in formulario %}
 				    <div class="field_container">
-				        <div class="form-group col-md-6">
-                            <label  class="control-label">{{ field.label_tag }}</label>
-                            {{ field }}
-                            {% if field.errors %}
-                            <div class="row">
-                                <div class="label label-danger col-md-4">
-                                    {{ field.errors  }}
-                                </div>
-                            </div>
-                            {% endif %}
-                        </div>
+				        <table>
+							{{ formulario.as_table }}
+						</table>
 				        <div class="clearfix"></div>
-
+				        {% if field.errors %}
+				    	<div class="row">
+					        <div class="label label-danger col-md-2">
+					        	{{ field.errors  }}
+							</div>
+						</div>
+					    {% endif %}
 				    </div>
-			{% endfor %}
+
 			<p><input type='submit' value='Registrar'/></p>
 		</form>
 	</div>
