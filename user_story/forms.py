@@ -1,7 +1,6 @@
 from django import forms
 from django.forms import ModelMultipleChoiceField
 from models import UserStory, Flujouserstory
-from usuario.models import Usuario
 
 
 class MyModelMultipleChoiceField(ModelMultipleChoiceField):
@@ -10,6 +9,10 @@ class MyModelMultipleChoiceField(ModelMultipleChoiceField):
 
 
 class UserStoryCreateForm(forms.ModelForm):
+    """
+    Clase que contiene los campos del formulario, necesarios para el registro de nuevos User Story
+    en la base de datos.
+    """
     class Meta:
         model = UserStory
         fields = ['nombre', 'descripcion', 'fecha_creacion', 'valor_negocio', 'valor_tecnico', 'prioridad', 'tipo',
@@ -24,6 +27,10 @@ class UserStoryCreateForm(forms.ModelForm):
 
 
 class UserStoryFlujoForm(forms.ModelForm):
+    """
+    Clase que contiene los campos del formulario, necesarios para el registro de nuevos Estados de User Story
+    en la base de datos.
+    """
     class Meta:
         model = Flujouserstory
         fields = ['actividad', 'user_story', 'estado_kamban']
