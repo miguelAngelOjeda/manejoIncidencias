@@ -94,3 +94,55 @@ def activar(request, pk_proyecto):
     usuario = Proyecto.objects.all()
     return render_to_response('proyectos.html', {'proyectos': usuario,'mensajes':mensaje}, context_instance=RequestContext(request))
 
+def proyectoEditar(request,pk_proyecto):
+    """
+    Clase que despliega el formulario para la modficacion del proyecto.
+
+    @type pk_proyecto: Integer
+	@param pk_proyecto: identificador unico del proyecto
+
+    @ivar form_class: Formulario que se utiliza para la modficacion de proyecto
+    @type form_class: django.forms
+
+    """
+    proyecto = Proyecto.objects.get(id=pk_proyecto)
+    if request.method == 'POST':
+        formulario = ProyectoEditarForm(request.POST)
+        if formulario.is_valid:
+            try:
+                nombre_corto = request.POST['nombre_corto']
+                nombre_largo = request.POST['nombre_largo']
+                fecha_fin = request.POST['fecha_fin']
+                fecha_inicio = request.POST['fecha_inicio']
+                usuario = request.POST['scrum_master']
+                if fecha_fin:
+                     if fecha_fin <= fecha_inicio:
+                         error = ("La fecha de finalizacion del proyecto debe ser posterior a la de fecha de inicio.")
+                         return render_to_response('editarUsuario.html',{'formulario':formulario,'errors':error}, context_instance=RequestContext(request))
+                     else:
+                        proyecto.fecha_fin = fecha_fin
+                else:
+                    fecha_fin = proyecto.fecha_fin
+
+                fechaFin = []
+                fechaFin = fecha_fin.split('/')
+                fecha_fin = fechaFin[2]+'-'+fechaFin[1]+'-'+fechaFin[0]
+
+                proyecto.nombre_corto = nombre_corto
+                proyecto.nombre_largo = nombre_largo
+                proyecto.fecha_fin = fecha_fin
+                user = get_object_or_404(User, pk=usuario)
+                proyecto.scrum_master = user
+                proyecto.save()
+                exito = 'El proyecto se modifico con exito'
+                return render_to_response('editarProyecto.html',{'formulario':formulario,'exito':exito}, context_instance=RequestContext(request))
+
+            except:
+                error = 'Error al procesar la entidad'
+                return render_to_response('editarProyecto.html',{'formulario':formulario,'errors':error}, context_instance=RequestContext(request))
+
+    else:
+        data = {'nombre_corto': proyecto.nombre_corto, 'nombre_largo': proyecto.nombre_largo,'fecha_inicio': proyecto.fecha_inicio, 'fecha_fin': proyecto.fecha_fin,
+                    'scrum_master': proyecto.scrum_master}
+        formulario = ProyectoEditarForm(data)
+    return render_to_response('editarProyecto.html', {'formulario': formulario}, context_instance=RequestContext(request))
