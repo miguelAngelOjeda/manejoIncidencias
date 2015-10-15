@@ -18,9 +18,10 @@ def lista_user_story(request):
     @return: Lista de User Story
     @rtype: render_to_response.
     """
+    usuario = request.user
     user_story = UserStory.objects.all()
     flujo_user_story = Flujouserstory.objects.all()
-    return render_to_response('userstory.html', {'user_story': user_story, 'flujo_user_story': flujo_user_story},
+    return render_to_response('userstory.html', {'user_story': user_story, 'flujo_user_story': flujo_user_story,'usuario':usuario},
                               context_instance=RequestContext(request))
 
 
@@ -32,6 +33,7 @@ def nuevo_userstory(request):
     @return: Formulario
     @rtype: render_to_response.
     """
+    usuario = request.user
     if request.method == 'POST':
         formulario = UserStoryCreateForm(request.POST)
         if formulario.is_valid:
@@ -40,11 +42,11 @@ def nuevo_userstory(request):
                 return HttpResponseRedirect('/../userstory')
             except:
                 error = 'Error al procesar la entidad'
-                return render_to_response('crear_userstory.html', {'formulario': formulario, 'errors': error},
+                return render_to_response('crear_userstory.html', {'formulario': formulario, 'errors': error,'usuario':usuario},
                                           context_instance=RequestContext(request))
     else:
         formulario = UserStoryCreateForm()
-    return render_to_response('crear_userstory.html', {'formulario': formulario},
+    return render_to_response('crear_userstory.html', {'formulario': formulario,'usuario':usuario},
                               context_instance=RequestContext(request))
 
 
@@ -59,6 +61,7 @@ def consultar_estado(request, id_user_story):
     @return: User Story
     @rtype: render_to_response
     """
+    usuario = request.user
     flujo_story = Flujouserstory.objects.get(id=id_user_story)
     if request.method == 'POST':
         formulario = UserStoryFlujoForm(request.POST, instance=flujo_story)
@@ -68,11 +71,11 @@ def consultar_estado(request, id_user_story):
                 return HttpResponseRedirect('/../userstory')
             except:
                 error = 'Error al procesar la entidad'
-                return render_to_response('nuevo_userstory_kanbam.html', {'formulario': formulario, 'error': error},
+                return render_to_response('nuevo_userstory_kanbam.html', {'formulario': formulario, 'error': error,'usuario':usuario},
                                           context_instance=RequestContext(request))
     else:
         formulario = UserStoryFlujoForm(instance=flujo_story)
-        return render_to_response('nuevo_userstory_kanbam.html', {'formulario': formulario},
+        return render_to_response('nuevo_userstory_kanbam.html', {'formulario': formulario,'usuario':usuario},
                                   context_instance=RequestContext(request))
 
 
@@ -84,6 +87,7 @@ def estados(request):
     @return: Lista de estados Kanbam de User Story
     @rtype: render_to_response
     """
+    usuario = request.user
     if request.method == 'POST':
         formulario = UserStoryFlujoForm(request.POST)
         if formulario.is_valid:
@@ -96,5 +100,5 @@ def estados(request):
                                           scontext_instance=RequestContext(request))
     else:
         formulario = UserStoryFlujoForm()
-    return render_to_response('nuevo_userstory_kanbam.html', {'formulario': formulario},
+    return render_to_response('nuevo_userstory_kanbam.html', {'formulario': formulario,'usuario':usuario},
                               context_instance=RequestContext(request))

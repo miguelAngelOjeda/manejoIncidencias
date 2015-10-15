@@ -6,27 +6,39 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from forms import ProyectoForm,ProyectoEditarForm
 from django.contrib.auth.models import User
+from rol.forms import Rol
 import datetime
 from django.utils.timezone import get_current_timezone
 
 # Create your views here.
 def proyectos(request):
+    usuario = request.user
     proyectos = Proyecto.objects.all()
-    return render_to_response('proyectos.html',{'proyectos':proyectos}, context_instance=RequestContext(request))
+    return render_to_response('proyectos.html',{'proyectos':proyectos ,'usuario':usuario}, context_instance=RequestContext(request))
 
 def nuevo_proyecto(request):
+    usuario = request.user
     if request.method=='POST':
         formulario = ProyectoForm(request.POST)
         if formulario.is_valid:
             try:
-                formulario.save()
+                proGurdado = formulario.save()
+                proyecto = proGurdado.id
+                print proyecto
+                usuario = proGurdado.scrum_master
+                print usuario
+                rol = Rol()
+                rol.usuario = usuario
+                rol.proyecto = proGurdado
+                rol.rol = "Scrum Master"
+                rol.save()
                 return HttpResponseRedirect('/')
             except:
                 error = 'Error al procesar la entidad'
-                return render_to_response('proyectoForm.html',{'formulario':formulario,'errors':error}, context_instance=RequestContext(request))
+                return render_to_response('proyectoForm.html',{'formulario':formulario,'errors':error,'usuario':usuario}, context_instance=RequestContext(request))
     else:
         formulario = ProyectoForm()
-    return render_to_response('proyectoForm.html',{'formulario':formulario}, context_instance=RequestContext(request))
+    return render_to_response('proyectoForm.html',{'formulario':formulario,'usuario':usuario}, context_instance=RequestContext(request))
 
 def consultarProyecto(request, pk_proyecto):
      """ Recibe un request y un id, luego busca en la base de datos al proyecto
@@ -43,8 +55,9 @@ def consultarProyecto(request, pk_proyecto):
 
 	@author: Miguel Ojeda
 	"""
+     usuario = request.user
      proyecto = Proyecto.objects.get(pk=pk_proyecto)
-     return render_to_response('visualizarProyecto.html', {'proyecto': proyecto}, context_instance=RequestContext(request))
+     return render_to_response('visualizarProyecto.html', {'proyecto': proyecto,'usuario':usuario}, context_instance=RequestContext(request))
 
 
 def desactivar(request, pk_proyecto):
@@ -61,14 +74,14 @@ def desactivar(request, pk_proyecto):
     @return: Renderiza proyectos/delete.html para obtener el formulario o
             redirecciona a la vista index de proyectos si el proyecto fue desactivado.
     """
-
+    usuario = request.user
     proyecto_detail = get_object_or_404(Proyecto, pk=pk_proyecto)
     proyecto_detail.is_active = False
     proyecto_detail.save()
     mensaje ="El proyecto se desactivo con exito."
 
     usuario = Proyecto.objects.all()
-    return render_to_response('proyectos.html', {'proyectos': usuario,'mensajes':mensaje}, context_instance=RequestContext(request))
+    return render_to_response('proyectos.html', {'proyectos': usuario,'mensajes':mensaje,'usuario':usuario}, context_instance=RequestContext(request))
 
 def activar(request, pk_proyecto):
     """
@@ -84,7 +97,7 @@ def activar(request, pk_proyecto):
     @return: Renderiza proyectos/delete.html para obtener el formulario o
             redirecciona a la vista index de proyectos si el proyecto fue desactivado.
     """
-
+    usuario = request.user
     proyecto_detail = get_object_or_404(Proyecto, pk=pk_proyecto)
     proyecto_detail.is_active = True
     proyecto_detail.save()
@@ -92,7 +105,7 @@ def activar(request, pk_proyecto):
     mensaje ="El usuario se activo con exito."
 
     usuario = Proyecto.objects.all()
-    return render_to_response('proyectos.html', {'proyectos': usuario,'mensajes':mensaje}, context_instance=RequestContext(request))
+    return render_to_response('proyectos.html', {'proyectos': usuario,'mensajes':mensaje,'usuario':usuario}, context_instance=RequestContext(request))
 
 def proyectoEditar(request,pk_proyecto):
     """
@@ -105,6 +118,7 @@ def proyectoEditar(request,pk_proyecto):
     @type form_class: django.forms
 
     """
+    usuario = request.user
     proyecto = Proyecto.objects.get(id=pk_proyecto)
     if request.method == 'POST':
         formulario = ProyectoEditarForm(request.POST)
@@ -118,7 +132,7 @@ def proyectoEditar(request,pk_proyecto):
                 if fecha_fin:
                      if fecha_fin <= fecha_inicio:
                          error = ("La fecha de finalizacion del proyecto debe ser posterior a la de fecha de inicio.")
-                         return render_to_response('editarUsuario.html',{'formulario':formulario,'errors':error}, context_instance=RequestContext(request))
+                         return render_to_response('editarUsuario.html',{'formulario':formulario,'errors':error,'usuario':usuario}, context_instance=RequestContext(request))
                      else:
                         proyecto.fecha_fin = fecha_fin
                 else:
@@ -135,14 +149,14 @@ def proyectoEditar(request,pk_proyecto):
                 proyecto.scrum_master = user
                 proyecto.save()
                 exito = 'El proyecto se modifico con exito'
-                return render_to_response('editarProyecto.html',{'formulario':formulario,'exito':exito}, context_instance=RequestContext(request))
+                return render_to_response('editarProyecto.html',{'formulario':formulario,'exito':exito,'usuario':usuario}, context_instance=RequestContext(request))
 
             except:
                 error = 'Error al procesar la entidad'
-                return render_to_response('editarProyecto.html',{'formulario':formulario,'errors':error}, context_instance=RequestContext(request))
+                return render_to_response('editarProyecto.html',{'formulario':formulario,'errors':error,'usuario':usuario}, context_instance=RequestContext(request))
 
     else:
         data = {'nombre_corto': proyecto.nombre_corto, 'nombre_largo': proyecto.nombre_largo,'fecha_inicio': proyecto.fecha_inicio, 'fecha_fin': proyecto.fecha_fin,
                     'scrum_master': proyecto.scrum_master}
         formulario = ProyectoEditarForm(data)
-    return render_to_response('editarProyecto.html', {'formulario': formulario}, context_instance=RequestContext(request))
+    return render_to_response('editarProyecto.html', {'formulario': formulario,'usuario':usuario}, context_instance=RequestContext(request))

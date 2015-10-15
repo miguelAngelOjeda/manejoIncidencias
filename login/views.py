@@ -29,6 +29,7 @@ def ingresar(request):
             acceso = authenticate(username=usuario, password=clave)
             if acceso is not None:
                 if acceso.is_active:
+                    usuario = request.user
                     login(request, acceso)
                     return HttpResponseRedirect('/gestion')
                 else:

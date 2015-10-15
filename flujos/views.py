@@ -11,13 +11,15 @@ from models import Flujo, Actividad,Estado
 # Create your views here.
 
 def flujos(request):
+    usuario = request.user
     flujos = Flujo.objects.all()
-    return render_to_response('flujos.html',{'flujos':flujos}, context_instance=RequestContext(request))
+    return render_to_response('flujos.html',{'flujos':flujos,'usuario':usuario}, context_instance=RequestContext(request))
 
 
 def actividades(request):
+    usuario = request.user
     actividades = Actividad.objects.all()
-    return render_to_response('actividades.html',{'actividades':actividades}, context_instance=RequestContext(request))
+    return render_to_response('actividades.html',{'actividades':actividades,'usuario':usuario}, context_instance=RequestContext(request))
 
 
 def nueva_actividad(request):
@@ -26,6 +28,7 @@ def nueva_actividad(request):
     @param request: django.http.HttpRequest.
     @return: render_to_response.
     """
+    usuario = request.user
     if request.method == 'POST':
         formulario = ActividadCreateForm(request.POST)
         if formulario.is_valid:
@@ -34,10 +37,10 @@ def nueva_actividad(request):
                 return HttpResponseRedirect('/../actividades')
             except:
                 error = 'Error al procesar la entidad'
-                return render_to_response('crear_actividad.html',{'formulario':formulario,'errors':error}, context_instance=RequestContext(request))
+                return render_to_response('crear_actividad.html',{'formulario':formulario,'errors':error,'usuario':usuario}, context_instance=RequestContext(request))
     else:
         formulario = ActividadCreateForm()
-    return render_to_response('crear_actividad.html', {'formulario': formulario}, context_instance=RequestContext(request))
+    return render_to_response('crear_actividad.html', {'formulario': formulario,'usuario':usuario}, context_instance=RequestContext(request))
 
 
 def nuevo_flujo(request):
@@ -46,6 +49,7 @@ def nuevo_flujo(request):
     @param request: django.http.HttpRequest.
     @return: render_to_response.
     """
+    usuario = request.user
     if request.method == 'POST':
         formulario = FlujoCreateForm(request.POST)
         if formulario.is_valid:
@@ -54,7 +58,7 @@ def nuevo_flujo(request):
                 return HttpResponseRedirect('/../flujos')
             except:
                 error = 'Error al procesar la entidad'
-                return render_to_response('crear_flujo.html',{'formulario':formulario,'errors':error}, context_instance=RequestContext(request))
+                return render_to_response('crear_flujo.html',{'formulario':formulario,'errors':error,'usuario':usuario}, context_instance=RequestContext(request))
     else:
         formulario = FlujoCreateForm()
     return render_to_response('crear_flujo.html', {'formulario': formulario}, context_instance=RequestContext(request))
@@ -72,14 +76,14 @@ def desactivar(request, pk_flujo):
     @return: Renderiza flujos/delete.html para obtener el formulario o
             redirecciona a la vista index de flujos si el flujo fue desactivado.
     """
-
+    usuariolB = request.user
     user_detail = get_object_or_404(Actividad, pk=pk_flujo)
     user_detail.is_active = False
     user_detail.save()
     mensaje ="El usuario se desactivo con exito."
 
     usuario = Actividad.objects.all()
-    return render_to_response('usuarios.html', {'usuarios': usuario,'mensajes':mensaje}, context_instance=RequestContext(request))
+    return render_to_response('usuarios.html', {'usuarios': usuario,'mensajes':mensaje,'usuario':usuariolB}, context_instance=RequestContext(request))
 
 def activar(request, pk_flujo):
     """
@@ -95,7 +99,7 @@ def activar(request, pk_flujo):
     @return: Renderiza flujos/delete.html para obtener el formulario o
             redirecciona a la vista index de flujos si el flujo fue desactivado.
     """
-
+    usuariolB = request.user
     user_detail = get_object_or_404(Actividad, pk=pk_flujo)
     user_detail.is_active = True
     user_detail.save()
@@ -103,5 +107,5 @@ def activar(request, pk_flujo):
     mensaje ="El usuario se activo con exito."
 
     usuario = Actividad.objects.all()
-    return render_to_response('usuarios.html', {'usuarios': usuario,'mensajes':mensaje}, context_instance=RequestContext(request))
+    return render_to_response('usuarios.html', {'usuarios': usuario,'mensajes':mensaje,'usuario':usuariolB}, context_instance=RequestContext(request))
 
