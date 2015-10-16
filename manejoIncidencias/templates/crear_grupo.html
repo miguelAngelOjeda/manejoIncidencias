@@ -10,11 +10,11 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Gestion de Proyectos</a>
+          <a class="navbar-brand" href="/">Gestion de Proyectos</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
-            {%if  usuario.is_superuser%}
+           {%if  usuario.is_superuser%}
             <li><a href="/usuarios/">Usuarios</a></li>
             <li><a href="/proyectos/">Proyectos</a></li>
 			<li><a href="salir">Salir</a></li>
@@ -39,15 +39,12 @@
 
 	</div>
 	<div class="col-lg-4">
-			<a href="/flujo/crear" class="btn btn-primary" role="button">Crear Flujo</a>
-		  	<a href="/actividad/crear" class="btn btn-primary" role="button">Crear Actividad</a>
-			<a href="/actividades" class="btn btn-primary" role="button">Listar Actividad</a>
-			<a href="/flujos" class="btn btn-info" role="button">Atras</a>
+			<a href="/grupos" class="btn btn-info" role="button">Atras</a>
 	</div>
 </div>
 <div class="row">
 	<ul>
-		<h2 class="sub-header">Crear Actividad</h2>
+		<h2 class="sub-header">Asignar Rol</h2>
 		<hr>
 	</ul>
 </div>

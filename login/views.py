@@ -7,11 +7,12 @@ from django.core.mail import EmailMessage
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
-
+from proyecto.models import Proyecto
 @login_required(login_url='/ingresar')
 def home(request):
     usuario = request.user
-    return render_to_response('gestion.html', {'usuario':usuario}, context_instance=RequestContext(request))
+    proyecto = Proyecto.objects.get(scrum_master=usuario)
+    return render_to_response('gestion.html', {'usuario':usuario,'proyecto':proyecto}, context_instance=RequestContext(request))
 
 @login_required(login_url='/ingresar')
 def cerrar(request):
@@ -19,6 +20,7 @@ def cerrar(request):
     return HttpResponseRedirect('/')
 
 def ingresar(request):
+
     if not request.user.is_anonymous():
         return HttpResponseRedirect('/gestion')
     if request.method == 'POST':
@@ -30,7 +32,10 @@ def ingresar(request):
             if acceso is not None:
                 if acceso.is_active:
                     usuario = request.user
-                    login(request, acceso)
+                    print acceso.id
+                    proyecto = Proyecto.objects.get(scrum_master=acceso)
+                    print proyecto
+                    login(request, acceso,proyecto)
                     return HttpResponseRedirect('/gestion')
                 else:
                     return render_to_response('noactivo.html', context_instance=RequestContext(request))

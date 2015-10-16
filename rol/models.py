@@ -13,12 +13,12 @@ class Rol(models.Model):
     Scrum master, equipo, estado.
     """
     ROL=(
-        ('Scrum Master', 'Scrum Master'),
         ('Development', 'Development'),
         ('Product Owner', 'Product Owner'),
     )
+    nombre = models.CharField(max_length=15)
+    usuario = models.ManyToManyField(User, null=False)
     proyecto = models.ForeignKey(Proyecto, null=True, related_name='proyecto')
-    usuario = models.ForeignKey(User, null=True)
     rol = models.CharField(max_length=15, choices=ROL)
 
 

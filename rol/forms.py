@@ -1,7 +1,7 @@
 from django import forms
 from django.forms import ModelMultipleChoiceField
 from models import Rol
-
+from django.contrib.auth.models import User
 
 
 
@@ -10,9 +10,11 @@ class RolForm(forms.ModelForm):
     Clase que contiene los campos del formulario, necesarios para el registro de nuevos User Story
     en la base de datos.
     """
+    usuario = ModelMultipleChoiceField(User.objects.all(),
+            widget=forms.CheckboxSelectMultiple, required=True)
     class Meta:
         model = Rol
-        fields = ['rol', 'proyecto', 'usuario']
+        fields = ['rol', 'usuario']
 
     def save(self, commit=True):
         if not commit:

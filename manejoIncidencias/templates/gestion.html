@@ -19,6 +19,8 @@
             <li><a href="/proyectos/">Proyectos</a></li>
 			<li><a href="salir">Salir</a></li>
 			{% else %}
+            <li><a href="/asignar/grupos">Grupos</a></li>
+            <li><a href="/grupos/">Roles</a></li>
             <li><a href="/flujos/">Flujos</a></li>
             <li><a href="salir">Salir</a></li>
 			{%endif %}
@@ -34,5 +36,5 @@
 	<hr>
 	<p>Bievenido {{usuario.username|upper}}, 
 		la última vez que te vimos por aquí fue el {{usuario.last_login}}.</p>
-	<p>Eres miembro desde el {{usuario.date_joined}}</p>
+	<p>Eres miembro desde el {{usuario.date_joined}} encargado del proyecto {{proyecto.nombre_largo|upper}}</p>
 {% endblock %}
