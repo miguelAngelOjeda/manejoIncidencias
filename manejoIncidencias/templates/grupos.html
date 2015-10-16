@@ -38,13 +38,13 @@
 
 	</div>
 	<div class="col-lg-4">
-			<a href="/grupos/crear" class="btn btn-primary" role="button">Asignar Usuario</a>
+			<a href="/grupo/crear" class="btn btn-primary" role="button">Crear Grupo</a>
 	</div>
 </div>
 
 <div class="row">
 	<ul>
-		<h2 class="sub-header">Administrar Roles</h2>
+		<h2 class="sub-header">Administrar Grupos</h2>
 		{% if mensajes %}
 			<div class="alert alert-success" role="alert">
 				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -60,18 +60,18 @@
 			  <thead>
 				<tr>
 					 <th>#</th>
-					<th>Nombre Rol</th>
+					<th>Nombre Grupo</th>
 				</tr>
 			  </thead>
 			  <tbody>
 					{% for dato in flujos %}
 						<tr>
 							<td></td>
-							<td>{{dato.rol}}</td>
+							<td>{{dato.nombre}}</td>
 							<td>
 
 
-									<a href='{% url "rol.views.lista_usuarios" dato.id %}' title="Lista Usuarios" aria-label="Close" class="btn btn-info" role="button">Usuarios</a>
+									<a href='{% url "grupos.views.lista_usuarios" dato.id %}' title="Lista Usuarios" aria-label="Close" class="btn btn-info" role="button">Usuarios</a>
 
 							</td>
 						</tr>

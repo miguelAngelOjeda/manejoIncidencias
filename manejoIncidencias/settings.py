@@ -142,6 +142,7 @@ INSTALLED_APPS = (
     'proyecto',
     'flujos',
     'rol',
+    'grupos',
     'user_story'
 )
 
