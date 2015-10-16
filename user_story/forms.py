@@ -35,7 +35,8 @@ class UserStoryFlujoForm(forms.ModelForm):
     """
     class Meta:
         model = Flujouserstory
-        fields = ['actividad', 'user_story', 'estado_kamban']
+        # fields = ['actividad', 'user_story', 'estado_kamban']
+        fields = ['actividad', 'user_story']
 
     def save(self, commit=True):
         if not commit:
