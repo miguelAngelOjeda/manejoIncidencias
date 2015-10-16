@@ -10,6 +10,7 @@ class GrupoForm(forms.ModelForm):
     Clase que contiene los campos del formulario, necesarios para el registro de nuevos Grupos
     en la base de datos.
     """
+
     usuarios = ModelMultipleChoiceField(User.objects.all(),
             widget=forms.CheckboxSelectMultiple, required=True)
     class Meta:
@@ -22,5 +23,7 @@ class GrupoForm(forms.ModelForm):
         grupo = super(GrupoForm, self).save(commit=True)
 
         return grupo
+
+
 
 

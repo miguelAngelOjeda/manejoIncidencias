@@ -9,6 +9,7 @@ class Grupo(models.Model):
     Crea el formulario para los grupos para cada instancia de Proyecto,
     el cual define los campos nombre, usuarios .
     """
+
     nombre = models.CharField(max_length=15)
     usuarios = models.ManyToManyField(User, null=False)
 

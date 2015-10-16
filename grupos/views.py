@@ -9,6 +9,7 @@ from forms import GrupoForm
 from models import Grupo
 # Create your views here.
 
+
 def grupos_listar(request):
     usuario = request.user
     gupos = Grupo.objects.all()
