@@ -15,8 +15,10 @@ class UserStoryCreateForm(forms.ModelForm):
     """
     class Meta:
         model = UserStory
-        fields = ['nombre', 'descripcion', 'fecha_creacion', 'valor_negocio', 'valor_tecnico', 'prioridad', 'tipo',
-                  'autor', 'estado_scrum']
+        # fields = ['nombre', 'descripcion', 'fecha_creacion', 'valor_negocio', 'valor_tecnico', 'prioridad', 'tipo',
+        #           'autor', 'estado_scrum']
+        fields = ['nombre', 'descripcion', 'fecha_creacion', 'tipo',
+                  'autor']
 
     def save(self, commit=True):
         if not commit:
