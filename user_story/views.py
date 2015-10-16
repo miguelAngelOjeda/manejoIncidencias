@@ -58,7 +58,7 @@ def consultar_estado(request, id_user_story):
     @type request:
     @param id_user_story:
     @type id_user_story: int
-    @return: User Story
+    @return: User Story especificado
     @rtype: render_to_response
     """
     usuario = request.user
@@ -81,7 +81,7 @@ def consultar_estado(request, id_user_story):
 
 def estados(request):
     """
-    Funcion que recibe un request y devuelve un response
+    Funcion que recibe un request y devuelve un response que contiene todos los estados Kanbam
     @param request:
     @type request:
     @return: Lista de estados Kanbam de User Story
