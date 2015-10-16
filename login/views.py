@@ -32,10 +32,7 @@ def ingresar(request):
             if acceso is not None:
                 if acceso.is_active:
                     usuario = request.user
-                    print acceso.id
-                    proyecto = Proyecto.objects.get(scrum_master=acceso)
-                    print proyecto
-                    login(request, acceso,proyecto)
+                    login(request, acceso)
                     return HttpResponseRedirect('/gestion')
                 else:
                     return render_to_response('noactivo.html', context_instance=RequestContext(request))
