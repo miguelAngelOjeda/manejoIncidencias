@@ -11,8 +11,9 @@ from proyecto.models import Proyecto
 @login_required(login_url='/ingresar')
 def home(request):
     usuario = request.user
-    proyecto = Proyecto.objects.get(scrum_master=usuario)
-    return render_to_response('gestion.html', {'usuario':usuario,'proyecto':proyecto}, context_instance=RequestContext(request))
+    # proyecto = Proyecto.objects.get(scrum_master=usuario)
+    # return render_to_response('gestion.html', {'usuario':usuario,'proyecto':proyecto}, context_instance=RequestContext(request))
+    return render_to_response('gestion.html', {'usuario':usuario}, context_instance=RequestContext(request))
 
 @login_required(login_url='/ingresar')
 def cerrar(request):
