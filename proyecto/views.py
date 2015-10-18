@@ -13,11 +13,15 @@ from django.utils.timezone import get_current_timezone
 # Create your views here.
 def proyectos(request):
     usuario = request.user
+    if not usuario.is_superuser:
+        return HttpResponseRedirect('/gestion')
     proyectos = Proyecto.objects.all()
     return render_to_response('proyectos.html',{'proyectos':proyectos ,'usuario':usuario}, context_instance=RequestContext(request))
 
 def nuevo_proyecto(request):
     usuario = request.user
+    if not usuario.is_superuser:
+        return HttpResponseRedirect('/gestion')
     if request.method=='POST':
         formulario = ProyectoForm(request.POST)
         if formulario.is_valid:
@@ -56,6 +60,8 @@ def consultarProyecto(request, pk_proyecto):
 	@author: Miguel Ojeda
 	"""
      usuario = request.user
+     if not usuario.is_superuser:
+        return HttpResponseRedirect('/gestion')
      proyecto = Proyecto.objects.get(pk=pk_proyecto)
      return render_to_response('visualizarProyecto.html', {'proyecto': proyecto,'usuario':usuario}, context_instance=RequestContext(request))
 
@@ -75,6 +81,8 @@ def desactivar(request, pk_proyecto):
             redirecciona a la vista index de proyectos si el proyecto fue desactivado.
     """
     usuario = request.user
+    if not usuario.is_superuser:
+        return HttpResponseRedirect('/gestion')
     proyecto_detail = get_object_or_404(Proyecto, pk=pk_proyecto)
     proyecto_detail.is_active = False
     proyecto_detail.save()
@@ -98,6 +106,8 @@ def activar(request, pk_proyecto):
             redirecciona a la vista index de proyectos si el proyecto fue desactivado.
     """
     usuario = request.user
+    if not usuario.is_superuser:
+        return HttpResponseRedirect('/gestion')
     proyecto_detail = get_object_or_404(Proyecto, pk=pk_proyecto)
     proyecto_detail.is_active = True
     proyecto_detail.save()
@@ -119,6 +129,8 @@ def proyectoEditar(request,pk_proyecto):
 
     """
     usuario = request.user
+    if not usuario.is_superuser:
+        return HttpResponseRedirect('/gestion')
     proyecto = Proyecto.objects.get(id=pk_proyecto)
     if request.method == 'POST':
         formulario = ProyectoEditarForm(request.POST)
