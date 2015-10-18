@@ -57,7 +57,7 @@ class Flujouserstory(models.Model):
     """
     actividad = models.ForeignKey(Actividad, related_name='user_story_actividad')
     user_story = models.ForeignKey(UserStory, related_name='user_story_flujo')
-    ESTADOS_KAMBAN=(
+    ESTADOS_KAMBAN = (
         ('To Do', 'To Do'),
         ('Doing', 'Doing'),
         ('Done', 'Done')
@@ -66,3 +66,9 @@ class Flujouserstory(models.Model):
 
     def __unicode__(self):
         return self.actividad
+
+
+class UserStoryHoars(models.Model):
+    user_story = models.OneToOneField(UserStory, null=False, related_name='user_story_hrs')
+    horas_estimadas = models.IntegerField(default=0)
+    horas_trabajadas = models.IntegerField(default=0)
