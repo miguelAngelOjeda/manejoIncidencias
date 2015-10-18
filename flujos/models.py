@@ -25,7 +25,7 @@ class Actividad(models.Model):
 
 class Flujo(models.Model):
     nombre = models.CharField(max_length=15)
-    actividades = models.ManyToManyField(Actividad, null=False)
+    actividades = models.ManyToManyField(Actividad, null=True)
     descripcion = models.CharField(max_length = 150)
     is_active = models.BooleanField(default = True, editable=False)
     proyecto = models.ForeignKey(Proyecto, null=True, related_name='proyecto_flujo')
