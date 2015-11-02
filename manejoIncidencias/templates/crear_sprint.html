@@ -2,14 +2,13 @@
 {% block contenido %}
 <div class="row">
 	<div class="text-right">
-
-		  	<a href="/usuarios/" class="btn btn-primary" role="button">Cancelar</a>
-			<a href="/" class="btn btn-info" role="button">Atras</a>
-
+			<a href="/flujos" class="btn btn-info" role="button">Atras</a>
 	</div>
 </div>
 <div class="row">
-		<h2 class="sub-header">Crear Usuario</h2>
+
+		<h2 class="sub-header">Crear Sprints</h2>
+
 </div>
 <ul>
 	<div class= "row">
@@ -24,13 +23,13 @@
 				        <div class="clearfix"></div>
 				        {% if field.errors %}
 				    	<div class="row">
-					        <div class="label label-danger col-md-4">
+					        <div class="label label-danger col-md-2">
 					        	{{ field.errors  }}
 							</div>
 						</div>
 					    {% endif %}
 				    </div>
-			{% endfor %}
+				{% endfor %}
 			<p><input type='submit' value='Registrar'/></p>
 		</form>
 	</div>

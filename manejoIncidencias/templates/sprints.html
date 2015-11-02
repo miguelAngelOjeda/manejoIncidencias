@@ -2,49 +2,54 @@
 {% block contenido %}
 <div class="row">
 	<div class="text-right">
-			<a href="/flujo/crear" class="btn btn-primary" role="button">Crear Flujo</a>
-		  	<a href="/actividad/crear" class="btn btn-primary" role="button">Crear Actividad</a>
-			<a href="/actividades" class="btn btn-primary" role="button">Listar Actividad</a>
-			<a href="/flujos" class="btn btn-info" role="button">Atras</a>
-
+			<a href="/sprints/crear" class="btn btn-primary" role="button">Crear Sprints</a>
+			<a href="/" class="btn btn-default" role="button">Atras</a>
 	</div>
 </div>
-
 <div class="row">
-		<h2 class="sub-header">Administrar Flujos</h2>
+		<div class="page-header">
+		  <h1>Administrar<small> Sprints</small></h1>
+		</div>
 		{% if mensajes %}
 			<div class="alert alert-success" role="alert">
 				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 				{{mensajes}}
 			</div>
 		{% endif %}
+
 </div>
 <ul>
 	<div class="table-responsive">
 			<table class="table table-striped">
 			  <thead>
 				<tr>
-					<th>#</th>
-					<th>Nombre Actividad</th>
-					<th>Accion</th>
+					 <th>#</th>
+					<th>Nombre Sprints</th>
+					<th>Estado</th>
+					<th>Duracion</th>
+					<th>Fecha Inicio</th>
 				</tr>
 			  </thead>
 			  <tbody>
-					{% for dato in actividades %}
+					{% for dato in sprints %}
 						<tr>
 							<td></td>
 							<td>{{dato.nombre}}</td>
+							<td>{{dato.estado}}</td>
+							<td>{{dato.duracion}}</td>
+							<td>{{dato.fecha_inicio}}</td>
 							<td>
 
 								{%if dato.user.is_active%}
 									<a href='{% url "flujos.views.desactivar" dato.id %}' title="Desactivar" aria-label="Close" class="btn btn-danger" role="button">Desactivar</a>
 								{% else %}
-									<a href='{% url "flujos.views.activar" dato.id %}' title="Activar" aria-label="Close" class="btn btn-success" role="button">Activar</a>
+									<a href='{% url "sprints.views.asignarUserStory" dato.id %}' title="Asignar User Story" aria-label="Close" class="btn btn-warning glyphicon glyphicon-user" role="button"></a>
+									<a href='{% url "flujos.views.activar" dato.id %}' title="Editar Sprints" aria-label="Close" class="btn btn-info glyphicon glyphicon-pencil" role="button"></a>
 								{%endif %}
 							</td>
 						</tr>
 					{% empty %}
-						<li>No hay usuarios registrados, aún.</li>
+						<li>No hay sprints registrados, aún.</li>
 					{% endfor %}
 			  </tbody>
 			</table>

@@ -143,7 +143,8 @@ INSTALLED_APPS = (
     'flujos',
     'rol',
     'grupos',
-    'user_story'
+    'user_story',
+    'sprints'
 )
 
 # A sample logging configuration. The only tangible logging

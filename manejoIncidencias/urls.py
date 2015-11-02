@@ -59,5 +59,8 @@ urlpatterns = patterns('',
                        url(r'userstory/$', 'user_story.views.lista_user_story'),
                        url(r'^userstory/crear$', 'user_story.views.nuevo_userstory'),
                        url(r'^userstory/cambiarestado/(?P<id_user_story>\d+)$', 'user_story.views.consultar_estado'),
-                       url(r'^userstory/estado/$', 'user_story.views.estados')
+                       url(r'^userstory/estado/$', 'user_story.views.estados'),
+                       url(r'sprints/$', 'sprints.views.sprints'),
+                       url(r'^sprints/crear$', 'sprints.views.nuevo_sprint'),
+                       url(r'^sprints/asignar/(?P<pk_sprints>\d+)/userstory$', 'sprints.views.asignarUserStory'),
                        )

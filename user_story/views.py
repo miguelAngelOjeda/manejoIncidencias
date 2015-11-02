@@ -2,9 +2,14 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response
 
 from django.template import RequestContext
-
+from proyecto.models import Proyecto
 from user_story.forms import UserStoryCreateForm, UserStoryFlujoForm
 from user_story.models import UserStory, Flujouserstory
+from usuario.models import Usuario
+import logging
+
+# Get an instance of a logger
+logger = logging.getLogger(__name__)
 
 
 # Create your views here.
@@ -38,10 +43,28 @@ def nuevo_userstory(request):
         formulario = UserStoryCreateForm(request.POST)
         if formulario.is_valid:
             try:
-                formulario.save()
+                proyecto = Proyecto.objects.get(scrum_master=usuario)
+                print request.POST['autor']
+                userStory  = UserStory();
+                userStory.nombre = request.POST['nombre']
+                userStory.descripcion = request.POST['descripcion']
+                fecha_creacion  = request.POST['fecha_creacion']
+                fechaFin = fecha_creacion.split('/')
+                userStory.fecha_creacion = fechaFin[2]+'-'+fechaFin[1]+'-'+fechaFin[0]
+                userStory.valor_de_negocio = request.POST['valor_de_negocio']
+                userStory.valor_tecnico = request.POST['valor_tecnico']
+                userStory.duracion_horas = request.POST['duracion_horas']
+                userStory.duracion_horas_en_sprint = request.POST['duracion_horas_en_sprint']
+                userStory.prioridad = request.POST['prioridad']
+                userStory.tipo = request.POST['tipo']
+                userStory.autor = Usuario(request.POST['autor']);
+                userStory.proyecto = proyecto
+                userStory.estado_scrum = 'Nuevo'
+                userStory.save()
                 return HttpResponseRedirect('/../userstory')
-            except:
-                error = 'Error al procesar la entidad'
+            except Exception as e:
+                print e
+                error = e
                 return render_to_response('crear_userstory.html', {'formulario': formulario, 'errors': error,'usuario':usuario},
                                           context_instance=RequestContext(request))
     else:

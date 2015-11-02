@@ -15,7 +15,7 @@ class FlujoCreateForm(forms.ModelForm):
 
     class Meta:
         model = Flujo
-        fields = ['nombre', 'descripcion', 'proyecto']
+        fields = ['nombre', 'proyecto']
 
 
 class ActividadCreateForm(forms.ModelForm):
