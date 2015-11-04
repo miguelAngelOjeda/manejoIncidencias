@@ -10,7 +10,7 @@ class RolForm(forms.ModelForm):
     Clase que contiene los campos del formulario, necesarios para el registro de nuevos User Story
     en la base de datos.
     """
-    usuario = ModelMultipleChoiceField(User.objects.all(),
+    usuario = ModelMultipleChoiceField(User.objects.all().exclude(pk=1),
             widget=forms.CheckboxSelectMultiple, required=True)
     class Meta:
         model = Rol

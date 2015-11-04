@@ -11,7 +11,7 @@ class GrupoForm(forms.ModelForm):
     en la base de datos.
     """
 
-    usuarios = ModelMultipleChoiceField(User.objects.all(),
+    usuarios = ModelMultipleChoiceField(User.objects.all().exclude(pk=1),
             widget=forms.CheckboxSelectMultiple, required=True)
     class Meta:
         model = Grupo
