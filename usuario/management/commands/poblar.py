@@ -91,17 +91,21 @@ class Command(BaseCommand):
         estado2 = get_object_or_404(Estado, pk=3)
         estado3 = get_object_or_404(Estado, pk=1)
         actividad = Actividad(nombre="Planificar", estados=[estado1, estado2, estado3], is_active=True, orden=0)
+        actividad.save()
 
         estado1 = get_object_or_404(Estado, pk=5)
         estado2 = get_object_or_404(Estado, pk=6)
         estado3 = get_object_or_404(Estado, pk=4)
         actividad = Actividad(nombre="Desarrollar", estados=[estado1, estado2, estado3], is_active=True, orden=0)
+        actividad.save()
 
         estado1 = get_object_or_404(Estado, pk=8)
         estado2 = get_object_or_404(Estado, pk=9)
         estado3 = get_object_or_404(Estado, pk=7)
         actividad = Actividad(nombre="Probar", estados=[estado1, estado2, estado3], is_active=True, orden=0)
+        actividad.save()
 
         # Esta seccion carga la tabla flujo
         proyecto = get_object_or_404(Proyecto, pk=1)
         flujo = Flujo(descripcion="", nombre="Desarrollar", is_active=True, proyecto=proyecto)
+        flujo.save()
