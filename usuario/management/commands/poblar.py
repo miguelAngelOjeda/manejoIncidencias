@@ -53,14 +53,14 @@ class Command(BaseCommand):
 
         # Esta seccion carga la tabla proyecto
 
-        user_detail = get_object_or_404(User, pk=2)
+        user_detail = get_object_or_404(User, pk=22)
         proyecto = Proyecto(nombre_corto="Desarrollar", fecha_fin="2015-11-10", scrum_master=user_detail,
                             is_active=True,
                             fecha_inicio="2015-11-04", codigo="1", estado="No iniciado", cancelado=False,
                             nombre_largo="Desarrollar Proyecto")
         proyecto.save()
 
-        user_detail = get_object_or_404(User, pk=3)
+        user_detail = get_object_or_404(User, pk=23)
         proyecto = Proyecto(nombre_corto="Comer", fecha_fin="2015-11-05", scrum_master=user_detail, is_active=True,
                             fecha_inicio="2015-11-04", codigo="2", estado="No iniciado", cancelado=False,
                             nombre_largo="Comer comida saludable")
@@ -90,20 +90,29 @@ class Command(BaseCommand):
         estado1 = get_object_or_404(Estado, pk=2)
         estado2 = get_object_or_404(Estado, pk=3)
         estado3 = get_object_or_404(Estado, pk=1)
-        actividad = Actividad(nombre="Planificar", estados=[estado1, estado2, estado3], is_active=True, orden=0)
+        actividad = Actividad(nombre="Planificar", is_active=True, orden=0)
         actividad.save()
+        actividad.estados.add(estado1)
+        actividad.estados.add(estado2)
+        actividad.estados.add(estado3)
 
         estado1 = get_object_or_404(Estado, pk=5)
         estado2 = get_object_or_404(Estado, pk=6)
         estado3 = get_object_or_404(Estado, pk=4)
-        actividad = Actividad(nombre="Desarrollar", estados=[estado1, estado2, estado3], is_active=True, orden=0)
+        actividad = Actividad(nombre="Desarrollar", is_active=True, orden=0)
         actividad.save()
+        actividad.estados.add(estado1)
+        actividad.estados.add(estado2)
+        actividad.estados.add(estado3)
 
         estado1 = get_object_or_404(Estado, pk=8)
         estado2 = get_object_or_404(Estado, pk=9)
         estado3 = get_object_or_404(Estado, pk=7)
-        actividad = Actividad(nombre="Probar", estados=[estado1, estado2, estado3], is_active=True, orden=0)
+        actividad = Actividad(nombre="Probar", is_active=True, orden=0)
         actividad.save()
+        actividad.estados.add(estado1)
+        actividad.estados.add(estado2)
+        actividad.estados.add(estado3)
 
         # Esta seccion carga la tabla flujo
         proyecto = get_object_or_404(Proyecto, pk=1)
