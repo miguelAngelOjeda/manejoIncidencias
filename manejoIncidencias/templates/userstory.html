@@ -52,9 +52,11 @@
 						<td>{{dato.autor}}</td>
 						<td>{{dato.estado_scrum}}</td>
 						<td>
-								<a href='{% url "proyecto.views.activar" dato.id %}' title="Administrar User Story" aria-label="Close" class="btn btn-warning glyphicon glyphicon-cog" role="button"></a>
-								<a href='{% url "proyecto.views.activar" dato.id %}' title="Activar" aria-label="Close" class="btn btn-success glyphicon glyphicon-ok-sign" role="button"></a>
+							{%if dato.autor%}
 
+							{% else %}
+								<a href='{% url "user_story.views.asignarSprint" dato.id %}' title="Asignar Sprint" aria-label="Close" class="btn btn-warning glyphicon glyphicon-cog" role="button"></a>
+							{%endif %}
 						</td>
 						{% for dato2 in flujo_user_story %}
 							{% if dato.id == dato2.user_story %}

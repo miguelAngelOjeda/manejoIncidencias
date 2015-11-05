@@ -6,6 +6,8 @@ from django.core.urlresolvers import reverse
 from flujos.models import Actividad
 from proyecto.models import Proyecto
 from usuario.models import Usuario
+from sprints.models import Sprint
+from flujos.models import Flujo
 import datetime
 
 
@@ -33,9 +35,11 @@ class UserStory(models.Model):
     duracion_horas_en_sprint = models.IntegerField(max_length=4, help_text='duracion de horas en el sprint', null=True, blank=True)
     prioridad = models.IntegerField(max_length=3, help_text= 'Introduzca alguna prioridad para el User Stories', null=False, validators=[MinValueValidator(1), MaxValueValidator(100)])
     tipo = models.CharField(max_length=20)
-    autor = models.OneToOneField(Usuario, null=True, related_name='scrum_master')
+    autor = models.ForeignKey(Usuario, null=True, related_name='scrum_master')
     proyecto = models.ForeignKey(Proyecto, null=False)
     estado_scrum = models.CharField(max_length=20, choices=ESTADOS_SCRUM, default='Nuevo')
+    flujo = models.ForeignKey(Flujo, null=True, related_name='flujo')
+    sprint = models.ForeignKey(Sprint, null=True, related_name='sprint_user_story')
 
     def __unicode__(self):
         return self.nombre

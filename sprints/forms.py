@@ -1,6 +1,7 @@
 __author__ = 'Miguel'
 
 from sprints.models import Sprint
+from user_story.models import UserStory
 from django import forms
 
 class SprintModelForm(forms.ModelForm):
@@ -13,3 +14,5 @@ class SprintModelForm(forms.ModelForm):
 			'fecha_fin': forms.DateInput(attrs={'class':'datepicker'}),
 
 		}
+
+

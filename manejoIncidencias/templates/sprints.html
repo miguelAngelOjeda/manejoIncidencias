@@ -39,13 +39,10 @@
 							<td>{{dato.duracion}}</td>
 							<td>{{dato.fecha_inicio}}</td>
 							<td>
+								<a href='{% url "sprints.views.visualizarUserStory" dato.id %}' title="Visualizar User Story" aria-label="Close" class="btn btn-warning glyphicon glyphicon-zoom-in" role="button"></a>
 
-								{%if dato.user.is_active%}
-									<a href='{% url "flujos.views.desactivar" dato.id %}' title="Desactivar" aria-label="Close" class="btn btn-danger" role="button">Desactivar</a>
-								{% else %}
-									<a href='{% url "sprints.views.asignarUserStory" dato.id %}' title="Asignar User Story" aria-label="Close" class="btn btn-warning glyphicon glyphicon-user" role="button"></a>
-									<a href='{% url "flujos.views.activar" dato.id %}' title="Editar Sprints" aria-label="Close" class="btn btn-info glyphicon glyphicon-pencil" role="button"></a>
-								{%endif %}
+								<a href='{% url "flujos.views.activar" dato.id %}' title="Editar Sprints" aria-label="Close" class="btn btn-info glyphicon glyphicon-pencil" role="button"></a>
+
 							</td>
 						</tr>
 					{% empty %}

@@ -63,4 +63,6 @@ urlpatterns = patterns('',
                        url(r'sprints/$', 'sprints.views.sprints'),
                        url(r'^sprints/crear$', 'sprints.views.nuevo_sprint'),
                        url(r'^sprints/asignar/(?P<pk_sprints>\d+)/userstory$', 'sprints.views.asignarUserStory'),
+                       url(r'^sprints/visualizar/(?P<pk_sprints>\d+)/userstory$', 'sprints.views.visualizarUserStory'),
+                       url(r'^asignar/(?P<pk_userStory>\d+)$', 'user_story.views.asignarSprint')
                        )

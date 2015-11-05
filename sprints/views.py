@@ -39,4 +39,12 @@ def asignarUserStory(request, pk_sprints):
     sprints = get_object_or_404(Sprint, pk=pk_sprints)
     userstorys = UserStory.objects.all()
     usuarios = Usuario.objects.all()
-    return render_to_response('asignar_userStory.html',{'userstorys':userstorys,'sprints':sprints,'usuario':usuario,'usuarios':usuarios}, context_instance=RequestContext(request))
+    return render_to_response('asignar_userStory.html',{'userstorys':userstorys,'sprints':pk_sprints,'usuario':usuario,'usuarios':usuarios}, context_instance=RequestContext(request))
+
+def visualizarUserStory(request, pk_sprints):
+    usuario = request.user
+    sprints = get_object_or_404(Sprint, pk=pk_sprints)
+    userstorys = UserStory.objects.all()
+    usuarios = Usuario.objects.all()
+    return render_to_response('visualizarSprint.html',{'userstorys':userstorys,'sprints':sprints,'usuario':usuario,'usuarios':usuarios}, context_instance=RequestContext(request))
+

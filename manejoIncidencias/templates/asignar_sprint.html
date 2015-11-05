@@ -1,0 +1,57 @@
+{% extends 'index.html' %}
+{% block contenido %}
+<div class="row">
+	<div class="text-right">
+
+		  	<a href="/usuarios/" class="btn btn-primary" role="button">Cancelar</a>
+			<a href="/proyectos" class="btn btn-info" role="button">Atras</a>
+
+	</div>
+</div>
+<div class="row">
+		<div class="page-header">
+		  <h1>Asignar Sprints <small>User Story </small></h1>
+		</div>
+</div>
+<div class="row">
+	<div class="col-sm-4">
+			  <div class="list-group">
+				<a href="#" class="list-group-item active">
+				  User Story
+				</a>
+					<a href="#" class="list-group-item">Nombre: {{ story.nombre }}</a>
+					<a href="#" class="list-group-item">Descripcion: {{ story.descripcion }}</a>
+					<a href="#" class="list-group-item">Fecha Creacion:{{ story.fecha_creacion }}</a>
+					<a href="#" class="list-group-item">Valor Negocio:{{ story.valor_de_negocio }}</a>
+				  	<a href="#" class="list-group-item">Duracion: {{ story.duracion_horas }}</a>
+			  </div>
+	</div>
+	<div class="col-sm-8">
+		<div class= "row">
+		<form id='formulario' method='post' action=''>{% csrf_token %}
+			 {% for field in formulario %}
+				    <div class="field_container">
+				        <div class="form-group col-md-8">
+                            <label  class="control-label">{{ field.label_tag }}</label>
+                            {{ field }}
+                            {% if field.errors %}
+                            <div class="row">
+                                <div class="label label-danger col-md-8">
+                                    {{ field.errors  }}
+                                </div>
+                            </div>
+                            {% endif %}
+                        </div>
+				        <div class="clearfix"></div>
+
+				    </div>
+			{% endfor %}
+			<p><input type='submit' value='Registrar'/></p>
+		</form>
+	</div>
+	</div>
+</div>
+<ul>
+
+</ul>
+{% endblock %}

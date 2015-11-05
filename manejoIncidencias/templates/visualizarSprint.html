@@ -1,0 +1,115 @@
+{% extends 'index.html' %}
+{% block contenido %}
+    <div class="row">
+		<div class="page-header">
+		  <h1>Gestionar User Story<small> Sprints</small></h1>
+		</div>
+		{% if mensajes %}
+			<div class="alert alert-success" role="alert">
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				{{mensajes}}
+			</div>
+		{% endif %}
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="alert alert-info" role="alert">
+                <strong>Fuerza de trabajo en el Sprint :    </strong> 400 horas.
+            </div>
+            <div class="alert alert-info" role="alert">
+                <strong>Horas Disponibles para asignar al Sprint :  </strong> 220 horas.
+            </div>
+            <div class="alert alert-info" role="alert">
+                <strong>Total de horas asignadas :  </strong> 400 horas.
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="page-header">
+              <h1>Detalle Trabajo<small> Sprints</small></h1>
+            </div>
+            <div class="col-md-4">
+                <div class="alert alert-success" role="alert">
+                    <strong>Duracion del Sprint :</strong> 20 dias
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="alert alert-success" role="alert">
+                    <strong>Cantidad Desarrolladores :</strong> 4
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="page-header col-md-6">
+          <h1>Product Backlog <small> Prioridad</small></h1>
+        </div>
+        <div class="page-header col-md-6">
+          <h1>Sprint <small>  Backlog</small></h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="list-group">
+                <a href="#" class="list-group-item disabled">
+                User Story
+                </a>
+                  <div class="table-responsive">
+                     <table class="table table-striped">
+                         <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Estimacion</th>
+                                <th>Prioridad</th>
+                                <th>Valor tecnico</th>
+                                <th>Valor Negocio</th>
+                            </tr>
+                         </thead>
+                         <tbody>
+                            {% for dato in userstorys %}
+                            <tr>
+                                <td>{{dato.nombre}}</td>
+                                <td>{{dato.duracion_horas}}</td>
+                                <td>{{dato.prioridad}}</td>
+                                <td>{{dato.valor_tecnico}}</td>
+                                <td>{{dato.valor_de_negocio}}</td>
+						    </tr>
+
+                            {% empty %}
+                                <li>No hay usuarios registrados, aún.</li>
+                            {% endfor %}
+                      </tbody>
+                     </table>
+                 </div>
+            </div>
+        </div>
+         <div class="col-md-6">
+            <div class="list-group">
+                <a href="#" class="list-group-item disabled">
+                Desarrollador
+                </a>
+                  <div class="table-responsive">
+                     <table class="table table-striped">
+                         <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Documento</th>
+                                <th>Telefono</th>
+                            </tr>
+                         </thead>
+                         <tbody>
+                            {% for dato in usuarios %}
+                                <tr>
+                                    <td>{{dato.user.username}}</td>
+                                    <td>{{dato.documento}}</td>
+                                    <td>{{dato.telefono}}</td>
+                                </tr>
+                            {% empty %}
+                                <li>No hay usuarios registrados, aún.</li>
+                            {% endfor %}
+                         </tbody>
+                     </table>
+                 </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

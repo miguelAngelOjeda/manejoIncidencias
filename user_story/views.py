@@ -3,9 +3,11 @@ from django.shortcuts import render_to_response
 
 from django.template import RequestContext
 from proyecto.models import Proyecto
-from user_story.forms import UserStoryCreateForm, UserStoryFlujoForm
+from user_story.forms import UserStoryCreateForm, UserStoryFlujoForm,AsignarForm
 from user_story.models import UserStory, Flujouserstory
 from usuario.models import Usuario
+from sprints.models import Sprint
+from flujos.models import Flujo
 import logging
 
 # Get an instance of a logger
@@ -44,7 +46,6 @@ def nuevo_userstory(request):
         if formulario.is_valid:
             try:
                 proyecto = Proyecto.objects.get(scrum_master=usuario)
-                print request.POST['autor']
                 userStory  = UserStory();
                 userStory.nombre = request.POST['nombre']
                 userStory.descripcion = request.POST['descripcion']
@@ -57,7 +58,6 @@ def nuevo_userstory(request):
                 userStory.duracion_horas_en_sprint = request.POST['duracion_horas_en_sprint']
                 userStory.prioridad = request.POST['prioridad']
                 userStory.tipo = request.POST['tipo']
-                userStory.autor = Usuario(request.POST['autor']);
                 userStory.proyecto = proyecto
                 userStory.estado_scrum = 'Nuevo'
                 userStory.save()
@@ -90,6 +90,7 @@ def consultar_estado(request, id_user_story):
         formulario = UserStoryFlujoForm(request.POST, instance=flujo_story)
         if formulario.is_valid:
             try:
+
                 formulario.save()
                 return HttpResponseRedirect('/../userstory')
             except:
@@ -125,3 +126,27 @@ def estados(request):
         formulario = UserStoryFlujoForm()
     return render_to_response('nuevo_userstory_kanbam.html', {'formulario': formulario,'usuario':usuario},
                               context_instance=RequestContext(request))
+
+def asignarSprint(request,pk_userStory):
+    story = UserStory.objects.get(id=pk_userStory)
+    usuario = request.user
+    if request.method == 'POST':
+        formulario = AsignarForm(request.POST)
+        if formulario.is_valid:
+            try:
+                story = UserStory.objects.get(id=pk_userStory)
+                autor = request.POST['autor']
+                sprint = request.POST['sprint']
+                flujo = request.POST['flujo']
+                story.autor = Usuario(autor)
+                story.sprint = Sprint(sprint)
+                story.flujo = Flujo(flujo)
+                story.save()
+                return HttpResponseRedirect('/../sprints')
+            except Exception as e:
+                print e
+                error = 'Error al procesar la entidad'
+                return render_to_response('asignar_sprint.html',{'formulario':formulario,'story':story,'errors':error,'usuario':usuario}, context_instance=RequestContext(request))
+    else:
+        formulario = AsignarForm()
+    return render_to_response('asignar_sprint.html', {'formulario': formulario,'usuario':usuario,'story':story}, context_instance=RequestContext(request))
