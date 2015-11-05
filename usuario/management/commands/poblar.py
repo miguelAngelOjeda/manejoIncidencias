@@ -86,7 +86,6 @@ class Command(BaseCommand):
         estado = Estado(nombre='Done')
         estado.save()
 
-
         # Esta seccion carga la tabla actividades
         estado1 = get_object_or_404(Estado, pk=2)
         estado2 = get_object_or_404(Estado, pk=3)
