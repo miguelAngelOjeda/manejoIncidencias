@@ -11,24 +11,28 @@
 			</div>
 		{% endif %}
     </div>
+    <hr>
     <div class="row">
-        <div class="table-responsive">
-			<table class="table table-striped">
-			  <thead>
-				<tr>
-					 <th>#</th>
-					<th>Nombre</th>
-                    <th>Estimacion</th>
-                    <th>Prioridad</th>
-                    <th>Valor tecnico</th>
-                    <th>Valor Negocio</th>
-				</tr>
-			  </thead>
-			  <tbody>
-					{% for dato in userstorys %}
-						<tr>
-							<td></td>
-							    <td>{{dato.nombre}}</td>
+        <div class="col-md-4">
+            <div class="list-group">
+                <a href="#" class="list-group-item disabled">
+                Sprints
+                </a>
+                  <div class="table-responsive">
+                     <table class="table table-striped">
+                         <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Estimacion</th>
+                                <th>Prioridad</th>
+                                <th>Valor tecnico</th>
+                                <th>Valor Negocio</th>
+                            </tr>
+                         </thead>
+                         <tbody>
+                            {% for dato in userstorys %}
+                            <tr>
+                                <td>{{dato.nombre}}</td>
                                 <td>{{dato.duracion_horas}}</td>
                                 <td>{{dato.prioridad}}</td>
                                 <td>{{dato.valor_tecnico}}</td>

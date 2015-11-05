@@ -28,7 +28,8 @@ def lista_user_story(request):
     usuario = request.user
     user_story = UserStory.objects.all()
     flujo_user_story = Flujouserstory.objects.all()
-    return render_to_response('userstory.html', {'user_story': user_story, 'flujo_user_story': flujo_user_story,'usuario':usuario},
+    return render_to_response('userstory.html',
+                              {'user_story': user_story, 'flujo_user_story': flujo_user_story, 'usuario': usuario},
                               context_instance=RequestContext(request))
 
 
@@ -49,9 +50,9 @@ def nuevo_userstory(request):
                 userStory  = UserStory();
                 userStory.nombre = request.POST['nombre']
                 userStory.descripcion = request.POST['descripcion']
-                fecha_creacion  = request.POST['fecha_creacion']
+                fecha_creacion = request.POST['fecha_creacion']
                 fechaFin = fecha_creacion.split('/')
-                userStory.fecha_creacion = fechaFin[2]+'-'+fechaFin[1]+'-'+fechaFin[0]
+                userStory.fecha_creacion = fechaFin[2] + '-' + fechaFin[1] + '-' + fechaFin[0]
                 userStory.valor_de_negocio = request.POST['valor_de_negocio']
                 userStory.valor_tecnico = request.POST['valor_tecnico']
                 userStory.duracion_horas = request.POST['duracion_horas']
@@ -65,11 +66,12 @@ def nuevo_userstory(request):
             except Exception as e:
                 print e
                 error = e
-                return render_to_response('crear_userstory.html', {'formulario': formulario, 'errors': error,'usuario':usuario},
+                return render_to_response('crear_userstory.html',
+                                          {'formulario': formulario, 'errors': error, 'usuario': usuario},
                                           context_instance=RequestContext(request))
     else:
         formulario = UserStoryCreateForm()
-    return render_to_response('crear_userstory.html', {'formulario': formulario,'usuario':usuario},
+    return render_to_response('crear_userstory.html', {'formulario': formulario, 'usuario': usuario},
                               context_instance=RequestContext(request))
 
 
@@ -95,11 +97,12 @@ def consultar_estado(request, id_user_story):
                 return HttpResponseRedirect('/../userstory')
             except:
                 error = 'Error al procesar la entidad'
-                return render_to_response('nuevo_userstory_kanbam.html', {'formulario': formulario, 'error': error,'usuario':usuario},
+                return render_to_response('nuevo_userstory_kanbam.html',
+                                          {'formulario': formulario, 'error': error, 'usuario': usuario},
                                           context_instance=RequestContext(request))
     else:
         formulario = UserStoryFlujoForm(instance=flujo_story)
-        return render_to_response('nuevo_userstory_kanbam.html', {'formulario': formulario,'usuario':usuario},
+        return render_to_response('nuevo_userstory_kanbam.html', {'formulario': formulario, 'usuario': usuario},
                                   context_instance=RequestContext(request))
 
 
@@ -124,7 +127,7 @@ def estados(request):
                                           scontext_instance=RequestContext(request))
     else:
         formulario = UserStoryFlujoForm()
-    return render_to_response('nuevo_userstory_kanbam.html', {'formulario': formulario,'usuario':usuario},
+    return render_to_response('nuevo_userstory_kanbam.html', {'formulario': formulario, 'usuario': usuario},
                               context_instance=RequestContext(request))
 
 def asignarSprint(request,pk_userStory):

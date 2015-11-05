@@ -32,7 +32,7 @@ def nuevo_grupo(request):
                 rol = get_object_or_404(Rol, pk=rol.id)
                 rol.proyecto = proyecto
                 rol.save()
-                return HttpResponseRedirect('/../flujos')
+                return HttpResponseRedirect('/../grupos')
             except:
                 error = 'Error al procesar la entidad'
                 return render_to_response('crear_grupo.html',{'formulario':formulario,'errors':error,'usuario':usuario}, context_instance=RequestContext(request))

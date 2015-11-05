@@ -2,7 +2,7 @@ from django import forms
 from django.forms import ModelMultipleChoiceField
 from models import Grupo
 from django.contrib.auth.models import User
-
+from usuario.models import Usuario
 
 
 class GrupoForm(forms.ModelForm):
@@ -11,7 +11,7 @@ class GrupoForm(forms.ModelForm):
     en la base de datos.
     """
 
-    usuarios = ModelMultipleChoiceField(User.objects.all(),
+    usuarios = ModelMultipleChoiceField(User.objects.all().exclude(pk=1),
             widget=forms.CheckboxSelectMultiple, required=True)
     class Meta:
         model = Grupo
