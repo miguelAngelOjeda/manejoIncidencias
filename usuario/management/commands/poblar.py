@@ -53,14 +53,14 @@ class Command(BaseCommand):
 
         # Esta seccion carga la tabla proyecto
 
-        user_detail = get_object_or_404(User, pk=22)
+        user_detail = get_object_or_404(User, pk=2)
         proyecto = Proyecto(nombre_corto="Desarrollar", fecha_fin="2015-11-10", scrum_master=user_detail,
                             is_active=True,
                             fecha_inicio="2015-11-04", codigo="1", estado="No iniciado", cancelado=False,
                             nombre_largo="Desarrollar Proyecto")
         proyecto.save()
 
-        user_detail = get_object_or_404(User, pk=23)
+        user_detail = get_object_or_404(User, pk=3)
         proyecto = Proyecto(nombre_corto="Comer", fecha_fin="2015-11-05", scrum_master=user_detail, is_active=True,
                             fecha_inicio="2015-11-04", codigo="2", estado="No iniciado", cancelado=False,
                             nombre_largo="Comer comida saludable")
